@@ -1,0 +1,5 @@
+# Optional runtime dependencies, imported lazily and fail-closed if missing.
+# roulier: Colissimo label generation.
+# zeep:    Colissimo Point Retrait (pickup point) SOAP client.
+roulier
+zeep
