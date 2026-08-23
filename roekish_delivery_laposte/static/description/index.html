@@ -4,51 +4,56 @@
     <img src="banner.png" alt="roekish_delivery_laposte" style="max-width:100%;height:auto;border-radius:8px;"/>
   </p>
 
-  <h1 style="text-align:center;font-size:34px;margin:8px 0;">La Poste / Colissimo pour Odoo 19</h1>
+  <h1 style="text-align:center;font-size:34px;margin:8px 0;">La Poste / Colissimo for Odoo 19</h1>
   <p style="text-align:center;font-size:18px;color:#5c6b82;margin:0 0 32px;">
-    Calculez le prix, générez les étiquettes, suivez vos colis et proposez la
-    livraison en point de retrait, directement dans Odoo.
+    Rate shipments, generate labels, track parcels and offer pickup-point
+    delivery, straight from Odoo.
   </p>
 
-  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Fonctionnalités</h2>
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Features</h2>
   <ul style="font-size:16px;line-height:1.7;">
-    <li><b>Tarification</b> : prix calculé depuis une grille tarifaire Colissimo (poids par zone) ou les règles de prix natives d'Odoo.</li>
-    <li><b>Étiquettes</b> : génération d'une étiquette Colissimo et enregistrement du numéro de suivi sur le bon de livraison.</li>
-    <li><b>Suivi</b> : lien de suivi Colissimo mis à disposition du client.</li>
-    <li><b>Points de retrait</b> : recherche des relais proches et sélection sur le devis comme sur le bon de livraison, avec propagation à la validation.</li>
+    <li><b>Rating</b>: delivery price computed from a Colissimo tariff grid (weight by zone) or from Odoo's native pricing rules.</li>
+    <li><b>Labels</b>: Colissimo label generation, with the tracking number stored on the delivery order.</li>
+    <li><b>Tracking</b>: a Colissimo tracking link is exposed to the customer.</li>
+    <li><b>Pickup points</b>: search nearby relay points and select one on the sale order or the delivery order, propagated on confirmation.</li>
   </ul>
 
-  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Transporteurs et zones</h2>
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Carriers and zones</h2>
   <p style="font-size:16px;line-height:1.7;">
-    Quatre transporteurs prêts à l'emploi sont fournis avec les tarifs Colissimo
-    2026 publics, que vous remplacez par vos tarifs négociés : Domicile, Point
-    Retrait, Éco Outre-mer et Prêt-à-Envoyer. Les zones couvrent la France,
-    l'Outre-mer (zones 1 et 2), l'Union européenne avec la Suisse, le
-    Royaume-Uni et les zones internationales B et C.
+    Four ready-to-use carriers ship with the public Colissimo 2026 tariffs,
+    which you replace with your own negotiated rates: Home, Pickup Point,
+    Overseas Economy and Prepaid (Pret-a-Envoyer). Zones cover metropolitan
+    France, Overseas (zones 1 and 2), the European Union with Switzerland, the
+    United Kingdom, and international zones B and C.
   </p>
 
-  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Sécurité</h2>
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Security</h2>
   <ul style="font-size:16px;line-height:1.7;">
-    <li>Identifiants Colissimo réservés au groupe Administrateur La Poste, secrets masqués dans les messages d'erreur.</li>
-    <li>Droits d'accès fins avec des groupes Utilisateur et Administrateur dédiés.</li>
-    <li>Isolation multi-société sur les grilles tarifaires.</li>
+    <li>Colissimo credentials are restricted to the La Poste Administrator group, and secrets are masked in error messages.</li>
+    <li>Fine-grained access rights with dedicated User and Administrator groups.</li>
+    <li>Multi-company isolation on the tariff grids.</li>
   </ul>
 
-  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Prérequis</h2>
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Requirements</h2>
   <p style="font-size:16px;line-height:1.7;">
-    Le module s'appuie sur le framework de livraison natif d'Odoo. La
-    tarification fonctionne sans aucune librairie externe. La génération
-    d'étiquettes utilise <code>roulier</code> et la recherche de points de
-    retrait utilise <code>zeep</code> ; ces deux librairies sont optionnelles et
-    importées à la demande.
+    The module builds on Odoo's native delivery framework. Rating works with no
+    external library. Label generation uses <code>roulier</code> and pickup-point
+    search uses <code>zeep</code>; both libraries are optional and imported on
+    demand.
+  </p>
+  <p style="font-size:15px;line-height:1.7;background:#FFF4E1;border-left:4px solid #F0932B;padding:12px 16px;border-radius:6px;">
+    On Odoo Online (SaaS), installing Python libraries is not possible, so only
+    rating works there. Label generation and pickup-point search require Odoo.sh
+    or an On-Premise install, where <code>roulier</code> and <code>zeep</code>
+    can be installed.
   </p>
 
   <div style="text-align:center;margin:32px 0 8px;">
-    <a href="https://github.com/roekish-org/odoo-delivery-laposte" style="display:inline-block;background:#F0932B;color:#fff;text-decoration:none;padding:12px 28px;border-radius:28px;font-weight:600;">Code source et documentation</a>
+    <a href="https://github.com/roekish-org/odoo-delivery-laposte" style="display:inline-block;background:#F0932B;color:#fff;text-decoration:none;padding:12px 28px;border-radius:28px;font-weight:600;">Source code and documentation</a>
   </div>
 
   <p style="text-align:center;color:#8a94a6;font-size:14px;margin-top:24px;">
-    Licence AGPL-3.0. Édité par ROEKISH.
+    AGPL-3.0 licence. Published by ROEKISH.
   </p>
 
 </section>
