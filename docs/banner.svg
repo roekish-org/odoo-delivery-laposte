@@ -1,0 +1,51 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="roekish_delivery_laposte, Colissimo pour Odoo 19">
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8EC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="540" y1="96" x2="740" y2="296" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBC531"/>
+      <stop offset="1" stop-color="#F0932B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#page)"/>
+  <rect x="0" y="0" width="1280" height="10" fill="#F0932B"/>
+
+  <!-- icon badge -->
+  <g transform="translate(540,96)">
+    <rect width="200" height="200" rx="44" fill="url(#badge)"/>
+    <g transform="translate(20,20) scale(1.25)">
+      <path d="M64 28 L100 47 L100 85 L64 104 L28 85 L28 47 Z" fill="#22344F"/>
+      <path d="M64 28 L100 47 L64 66 L28 47 Z" fill="#2C4468"/>
+      <path d="M64 66 L100 47 L100 85 L64 104 Z" fill="#1C2C44"/>
+      <path d="M28 47 L64 66 L100 47" stroke="#FBC531" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <path d="M64 66 L64 104" stroke="#FBC531" stroke-width="3" fill="none"/>
+      <circle cx="64" cy="48" r="8.5" fill="#FFFFFF"/>
+      <circle cx="64" cy="48" r="3.6" fill="#F0932B"/>
+    </g>
+  </g>
+
+  <text x="640" y="372" text-anchor="middle" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="60" font-weight="700" fill="#22344F">roekish_delivery_laposte</text>
+  <text x="640" y="420" text-anchor="middle" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="30" font-weight="500" fill="#8A6A2A">La Poste / Colissimo pour Odoo 19</text>
+
+  <!-- feature chips -->
+  <g font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="26" font-weight="600" fill="#22344F" text-anchor="middle">
+    <g>
+      <rect x="196" y="486" width="188" height="60" rx="30" fill="#FFFFFF" stroke="#F0932B" stroke-width="2"/>
+      <text x="290" y="524">Tarification</text>
+    </g>
+    <g>
+      <rect x="404" y="486" width="180" height="60" rx="30" fill="#FFFFFF" stroke="#F0932B" stroke-width="2"/>
+      <text x="494" y="524">Étiquettes</text>
+    </g>
+    <g>
+      <rect x="604" y="486" width="130" height="60" rx="30" fill="#FFFFFF" stroke="#F0932B" stroke-width="2"/>
+      <text x="669" y="524">Suivi</text>
+    </g>
+    <g>
+      <rect x="754" y="486" width="330" height="60" rx="30" fill="#FFFFFF" stroke="#F0932B" stroke-width="2"/>
+      <text x="919" y="524">Points de retrait</text>
+    </g>
+  </g>
+</svg>

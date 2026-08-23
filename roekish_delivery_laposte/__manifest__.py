@@ -9,6 +9,7 @@
     "website": "https://github.com/Roekish-org",
     "category": "Inventory/Delivery",
     "license": "AGPL-3",
+    "images": ["static/description/banner.png"],
     "depends": [
         "stock_delivery",
     ],

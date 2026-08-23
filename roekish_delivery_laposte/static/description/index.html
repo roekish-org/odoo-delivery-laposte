@@ -1,0 +1,54 @@
+<section style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#22344F;max-width:960px;margin:0 auto;">
+
+  <p style="text-align:center;margin:0 0 24px;">
+    <img src="banner.png" alt="roekish_delivery_laposte" style="max-width:100%;height:auto;border-radius:8px;"/>
+  </p>
+
+  <h1 style="text-align:center;font-size:34px;margin:8px 0;">La Poste / Colissimo pour Odoo 19</h1>
+  <p style="text-align:center;font-size:18px;color:#5c6b82;margin:0 0 32px;">
+    Calculez le prix, générez les étiquettes, suivez vos colis et proposez la
+    livraison en point de retrait, directement dans Odoo.
+  </p>
+
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Fonctionnalités</h2>
+  <ul style="font-size:16px;line-height:1.7;">
+    <li><b>Tarification</b> : prix calculé depuis une grille tarifaire Colissimo (poids par zone) ou les règles de prix natives d'Odoo.</li>
+    <li><b>Étiquettes</b> : génération d'une étiquette Colissimo et enregistrement du numéro de suivi sur le bon de livraison.</li>
+    <li><b>Suivi</b> : lien de suivi Colissimo mis à disposition du client.</li>
+    <li><b>Points de retrait</b> : recherche des relais proches et sélection sur le devis comme sur le bon de livraison, avec propagation à la validation.</li>
+  </ul>
+
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Transporteurs et zones</h2>
+  <p style="font-size:16px;line-height:1.7;">
+    Quatre transporteurs prêts à l'emploi sont fournis avec les tarifs Colissimo
+    2026 publics, que vous remplacez par vos tarifs négociés : Domicile, Point
+    Retrait, Éco Outre-mer et Prêt-à-Envoyer. Les zones couvrent la France,
+    l'Outre-mer (zones 1 et 2), l'Union européenne avec la Suisse, le
+    Royaume-Uni et les zones internationales B et C.
+  </p>
+
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Sécurité</h2>
+  <ul style="font-size:16px;line-height:1.7;">
+    <li>Identifiants Colissimo réservés au groupe Administrateur La Poste, secrets masqués dans les messages d'erreur.</li>
+    <li>Droits d'accès fins avec des groupes Utilisateur et Administrateur dédiés.</li>
+    <li>Isolation multi-société sur les grilles tarifaires.</li>
+  </ul>
+
+  <h2 style="border-bottom:3px solid #F0932B;padding-bottom:6px;">Prérequis</h2>
+  <p style="font-size:16px;line-height:1.7;">
+    Le module s'appuie sur le framework de livraison natif d'Odoo. La
+    tarification fonctionne sans aucune librairie externe. La génération
+    d'étiquettes utilise <code>roulier</code> et la recherche de points de
+    retrait utilise <code>zeep</code> ; ces deux librairies sont optionnelles et
+    importées à la demande.
+  </p>
+
+  <div style="text-align:center;margin:32px 0 8px;">
+    <a href="https://github.com/roekish-org/odoo-delivery-laposte" style="display:inline-block;background:#F0932B;color:#fff;text-decoration:none;padding:12px 28px;border-radius:28px;font-weight:600;">Code source et documentation</a>
+  </div>
+
+  <p style="text-align:center;color:#8a94a6;font-size:14px;margin-top:24px;">
+    Licence AGPL-3.0. Édité par ROEKISH.
+  </p>
+
+</section>
