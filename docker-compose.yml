@@ -1,4 +1,4 @@
-# Local Odoo 19 demo stack for the delivery_laposte module.
+# Local Odoo 19 demo stack for the roekish_delivery_laposte module.
 # Usage:  make init   (build + install module with demo data)
 #         make up      (start, then open http://localhost:8069)
 services:

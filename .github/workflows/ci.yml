@@ -19,8 +19,8 @@ jobs:
       - name: Install module and run tests
         run: |
           docker compose run --rm odoo odoo -c /etc/odoo/odoo.conf \
-            -d ci_test -i delivery_laposte --without-demo=False \
-            --test-enable --test-tags=/delivery_laposte --stop-after-init
+            -d ci_test -i roekish_delivery_laposte --without-demo=False \
+            --test-enable --test-tags=/roekish_delivery_laposte --stop-after-init
 
   lint:
     name: lint
@@ -32,6 +32,6 @@ jobs:
           python-version: "3.12"
       - run: pip install black flake8
       - name: black
-        run: black --check --line-length 88 delivery_laposte
+        run: black --check --line-length 88 roekish_delivery_laposte
       - name: flake8
-        run: flake8 delivery_laposte
+        run: flake8 roekish_delivery_laposte

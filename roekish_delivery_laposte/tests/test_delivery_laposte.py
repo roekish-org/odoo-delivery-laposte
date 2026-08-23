@@ -177,7 +177,7 @@ class TestDeliveryLaposte(TransactionCase):
             ]
         }
         with patch(
-            "odoo.addons.delivery_laposte.models.delivery_carrier.roulier"
+            "odoo.addons.roekish_delivery_laposte.models.delivery_carrier.roulier"
         ) as roulier_mock:
             roulier_mock.get.return_value = fake_response
             result = self.carrier.laposte_send_shipping(picking)

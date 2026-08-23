@@ -1,4 +1,4 @@
-# Local Odoo 19 demo for the delivery_laposte module.
+# Local Odoo 19 demo for the roekish_delivery_laposte module.
 DB ?= colissimo
 COMPOSE = docker compose
 
@@ -10,7 +10,7 @@ build: ## Build the Odoo image (installs roulier + zeep)
 init: build ## Create the demo database with the module + demo data
 	$(COMPOSE) up -d db
 	$(COMPOSE) run --rm odoo odoo -c /etc/odoo/odoo.conf -d $(DB) \
-		-i delivery_laposte --without-demo=False --stop-after-init
+		-i roekish_delivery_laposte --without-demo=False --stop-after-init
 
 up: ## Start Odoo -> http://localhost:8069  (login admin / admin)
 	$(COMPOSE) up -d
@@ -27,7 +27,7 @@ shell: ## Open an Odoo shell on the demo database
 
 test: ## Run the module test suite
 	$(COMPOSE) run --rm odoo odoo -c /etc/odoo/odoo.conf -d $(DB) \
-		-u delivery_laposte --test-enable --test-tags=/delivery_laposte \
+		-u roekish_delivery_laposte --test-enable --test-tags=/roekish_delivery_laposte \
 		--stop-after-init
 
 reset: ## Drop the demo database

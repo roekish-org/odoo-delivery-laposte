@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/logo.svg" alt="delivery_laposte" width="480">
+  <img src="docs/logo.svg" alt="roekish_delivery_laposte" width="480">
 </p>
 
-<h1 align="center">delivery_laposte</h1>
+<h1 align="center">roekish_delivery_laposte</h1>
 
 <p align="center">
   <strong>Expédiez avec La Poste / Colissimo depuis Odoo 19.</strong><br>
@@ -46,7 +46,7 @@ B et C. Quatre transporteurs prêts à l'emploi :
 pip install roulier zeep          # optionnel : étiquettes + points de retrait
 ```
 
-Copiez `delivery_laposte/` dans votre `addons_path`, puis installez le module
+Copiez `roekish_delivery_laposte/` dans votre `addons_path`, puis installez le module
 depuis *Applications*. La tarification fonctionne **sans aucune librairie
 externe**.
 
@@ -73,7 +73,7 @@ make test   # suite de tests du module
   vérification, droits d'accès.
 - [Wiki](https://github.com/roekish-org/odoo-delivery-laposte/wiki) :
   installation, configuration, grilles, points de retrait, go-live.
-- [delivery_laposte/README.rst](delivery_laposte/README.rst) : fiche du module.
+- [roekish_delivery_laposte/README.rst](roekish_delivery_laposte/README.rst) : fiche du module.
 
 ## Contribuer
 

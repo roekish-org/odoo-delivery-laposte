@@ -1,4 +1,4 @@
-# Odoo 19 image with the Python dependencies needed by delivery_laposte.
+# Odoo 19 image with the Python dependencies needed by roekish_delivery_laposte.
 FROM odoo:19.0
 
 USER root

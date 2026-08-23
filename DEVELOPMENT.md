@@ -1,4 +1,4 @@
-# delivery_laposte: Development & Go-Live Guide
+# roekish_delivery_laposte: Development & Go-Live Guide
 
 Odoo 19 delivery carrier for **La Poste / Colissimo**: rating (tariff grid or
 Odoo rules), Colissimo label generation, parcel tracking and pickup-point
@@ -167,7 +167,7 @@ odoo_dev/
 ├── docker-compose.yml        # Postgres + Odoo 19 stack
 ├── docker/                   # Dockerfile (roulier, zeep) + odoo.conf
 ├── Makefile                  # init / up / test / shell / reset
-└── delivery_laposte/         # the Odoo module
+└── roekish_delivery_laposte/         # the Odoo module
     ├── models/               # carrier, tariff, pickup mixin, sale, picking
     ├── wizards/              # pickup-point search wizard
     ├── views/                # carrier, sale order, picking forms

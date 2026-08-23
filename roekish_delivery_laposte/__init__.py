@@ -10,6 +10,6 @@ def post_init_hook(env):
     right after install.
     """
     admin = env.ref("base.user_admin", raise_if_not_found=False)
-    group = env.ref("delivery_laposte.group_laposte_manager", raise_if_not_found=False)
+    group = env.ref("roekish_delivery_laposte.group_laposte_manager", raise_if_not_found=False)
     if admin and group:
         admin.sudo().write({"group_ids": [(4, group.id)]})

@@ -95,12 +95,12 @@ class DeliveryCarrier(models.Model):
     )
     laposte_account = fields.Char(
         string="La Poste contract number",
-        groups="delivery_laposte.group_laposte_manager",
+        groups="roekish_delivery_laposte.group_laposte_manager",
         help="Colissimo contract number used as the web service login.",
     )
     laposte_password = fields.Char(
         string="La Poste password",
-        groups="delivery_laposte.group_laposte_manager",
+        groups="roekish_delivery_laposte.group_laposte_manager",
         help="Password of the Colissimo web service account. Readable only "
         "by La Poste administrators.",
     )

@@ -4,9 +4,9 @@ repos:
     hooks:
       - id: black
         args: ["--line-length", "88"]
-        files: ^delivery_laposte/
+        files: ^roekish_delivery_laposte/
   - repo: https://github.com/PyCQA/flake8
     rev: 7.1.1
     hooks:
       - id: flake8
-        files: ^delivery_laposte/
+        files: ^roekish_delivery_laposte/
