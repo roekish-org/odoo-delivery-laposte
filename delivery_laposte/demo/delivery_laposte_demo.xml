@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ROEKISH
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+     Real Colissimo 2026 "affranchissement" tariffs, loaded as editable demo
+     data. Users copy these carriers and update the grids with their own
+     negotiated contract rates. -->
+<odoo>
+
+    <!-- ===================== Products ===================== -->
+    <record id="product_delivery_laposte_dom" model="product.product">
+        <field name="name">Colissimo Domicile</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries" />
+        <field name="sale_ok" eval="False" />
+        <field name="purchase_ok" eval="False" />
+        <field name="list_price">0.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+    <record id="product_delivery_laposte_relay" model="product.product">
+        <field name="name">Colissimo Point Retrait</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries" />
+        <field name="sale_ok" eval="False" />
+        <field name="purchase_ok" eval="False" />
+        <field name="list_price">0.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+    <record id="product_delivery_laposte_eco_om" model="product.product">
+        <field name="name">Colissimo Eco Outre-mer</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries" />
+        <field name="sale_ok" eval="False" />
+        <field name="purchase_ok" eval="False" />
+        <field name="list_price">0.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+    <record id="product_delivery_laposte_pae" model="product.product">
+        <field name="name">Colissimo Pret-a-Envoyer</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries" />
+        <field name="sale_ok" eval="False" />
+        <field name="purchase_ok" eval="False" />
+        <field name="list_price">0.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+
+    <!-- ===================== Carriers ===================== -->
+    <record id="delivery_carrier_laposte_dom" model="delivery.carrier">
+        <field name="name">La Poste - Colissimo Domicile</field>
+        <field name="delivery_type">laposte</field>
+        <field name="product_id" ref="product_delivery_laposte_dom" />
+        <field name="integration_level">rate_and_ship</field>
+        <field name="laposte_product_code">DOM</field>
+        <field name="laposte_label_format">PDF_10x15_300dpi</field>
+        <field name="laposte_pricing_method">grid</field>
+    </record>
+    <record id="delivery_carrier_laposte_relay" model="delivery.carrier">
+        <field name="name">La Poste - Colissimo Point Retrait</field>
+        <field name="delivery_type">laposte</field>
+        <field name="product_id" ref="product_delivery_laposte_relay" />
+        <field name="integration_level">rate_and_ship</field>
+        <field name="laposte_product_code">A2P</field>
+        <field name="laposte_label_format">PDF_10x15_300dpi</field>
+        <field name="laposte_pricing_method">grid</field>
+    </record>
+    <record id="delivery_carrier_laposte_eco_om" model="delivery.carrier">
+        <field name="name">La Poste - Colissimo Eco Outre-mer</field>
+        <field name="delivery_type">laposte</field>
+        <field name="product_id" ref="product_delivery_laposte_eco_om" />
+        <field name="integration_level">rate_and_ship</field>
+        <field name="laposte_product_code">CECO</field>
+        <field name="laposte_label_format">PDF_10x15_300dpi</field>
+        <field name="laposte_pricing_method">grid</field>
+    </record>
+    <record id="delivery_carrier_laposte_pae" model="delivery.carrier">
+        <field name="name">La Poste - Colissimo Pret-a-Envoyer</field>
+        <field name="delivery_type">laposte</field>
+        <field name="product_id" ref="product_delivery_laposte_pae" />
+        <field name="integration_level">rate_and_ship</field>
+        <field name="laposte_product_code">DOM</field>
+        <field name="laposte_label_format">PDF_10x15_300dpi</field>
+        <field name="laposte_pricing_method">grid</field>
+    </record>
+
+    <!-- Tariffs: dom -->
+    <record id="tariff_dom_fr_250g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.25</field>
+        <field name="price">5.49</field>
+    </record>
+    <record id="tariff_dom_fr_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">7.59</field>
+    </record>
+    <record id="tariff_dom_fr_750g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.75</field>
+        <field name="price">9.29</field>
+    </record>
+    <record id="tariff_dom_fr_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">1</field>
+        <field name="price">9.59</field>
+    </record>
+    <record id="tariff_dom_fr_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">2</field>
+        <field name="price">11.19</field>
+    </record>
+    <record id="tariff_dom_fr_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">5</field>
+        <field name="price">17.39</field>
+    </record>
+    <record id="tariff_dom_fr_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">10</field>
+        <field name="price">25.29</field>
+    </record>
+    <record id="tariff_dom_fr_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">15</field>
+        <field name="price">31.99</field>
+    </record>
+    <record id="tariff_dom_fr_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">FR</field>
+        <field name="max_weight">30</field>
+        <field name="price">39.59</field>
+    </record>
+    <record id="tariff_dom_om1_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">12.02</field>
+    </record>
+    <record id="tariff_dom_om1_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">1</field>
+        <field name="price">19.0</field>
+    </record>
+    <record id="tariff_dom_om1_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">2</field>
+        <field name="price">25.89</field>
+    </record>
+    <record id="tariff_dom_om1_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">5</field>
+        <field name="price">38.9</field>
+    </record>
+    <record id="tariff_dom_om1_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">10</field>
+        <field name="price">62.32</field>
+    </record>
+    <record id="tariff_dom_om1_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">15</field>
+        <field name="price">130.2</field>
+    </record>
+    <record id="tariff_dom_om1_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">30</field>
+        <field name="price">143.02</field>
+    </record>
+    <record id="tariff_dom_om2_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">12.21</field>
+    </record>
+    <record id="tariff_dom_om2_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">1</field>
+        <field name="price">18.95</field>
+    </record>
+    <record id="tariff_dom_om2_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">2</field>
+        <field name="price">33.49</field>
+    </record>
+    <record id="tariff_dom_om2_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">5</field>
+        <field name="price">55.96</field>
+    </record>
+    <record id="tariff_dom_om2_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">10</field>
+        <field name="price">109.58</field>
+    </record>
+    <record id="tariff_dom_om2_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">15</field>
+        <field name="price">249.99</field>
+    </record>
+    <record id="tariff_dom_om2_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">OM2</field>
+        <field name="max_weight">30</field>
+        <field name="price">287.23</field>
+    </record>
+    <record id="tariff_dom_eu_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">14.99</field>
+    </record>
+    <record id="tariff_dom_eu_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">1</field>
+        <field name="price">19.39</field>
+    </record>
+    <record id="tariff_dom_eu_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">2</field>
+        <field name="price">22.19</field>
+    </record>
+    <record id="tariff_dom_eu_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">5</field>
+        <field name="price">28.59</field>
+    </record>
+    <record id="tariff_dom_eu_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">10</field>
+        <field name="price">46.99</field>
+    </record>
+    <record id="tariff_dom_eu_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">15</field>
+        <field name="price">67.99</field>
+    </record>
+    <record id="tariff_dom_eu_20kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">20</field>
+        <field name="price">87.99</field>
+    </record>
+    <record id="tariff_dom_eu_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">EU</field>
+        <field name="max_weight">30</field>
+        <field name="price">87.99</field>
+    </record>
+    <record id="tariff_dom_uk_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">18.99</field>
+    </record>
+    <record id="tariff_dom_uk_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">1</field>
+        <field name="price">23.39</field>
+    </record>
+    <record id="tariff_dom_uk_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">2</field>
+        <field name="price">26.19</field>
+    </record>
+    <record id="tariff_dom_uk_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">5</field>
+        <field name="price">32.59</field>
+    </record>
+    <record id="tariff_dom_uk_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">10</field>
+        <field name="price">50.99</field>
+    </record>
+    <record id="tariff_dom_uk_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">15</field>
+        <field name="price">71.99</field>
+    </record>
+    <record id="tariff_dom_uk_20kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">20</field>
+        <field name="price">91.99</field>
+    </record>
+    <record id="tariff_dom_uk_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">UK</field>
+        <field name="max_weight">30</field>
+        <field name="price">91.99</field>
+    </record>
+    <record id="tariff_dom_intb_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">23.79</field>
+    </record>
+    <record id="tariff_dom_intb_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">1</field>
+        <field name="price">28.39</field>
+    </record>
+    <record id="tariff_dom_intb_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">2</field>
+        <field name="price">31.09</field>
+    </record>
+    <record id="tariff_dom_intb_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">5</field>
+        <field name="price">39.89</field>
+    </record>
+    <record id="tariff_dom_intb_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">10</field>
+        <field name="price">66.09</field>
+    </record>
+    <record id="tariff_dom_intb_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">15</field>
+        <field name="price">89.59</field>
+    </record>
+    <record id="tariff_dom_intb_20kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTB</field>
+        <field name="max_weight">20</field>
+        <field name="price">109.49</field>
+    </record>
+    <record id="tariff_dom_intc_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">35.19</field>
+    </record>
+    <record id="tariff_dom_intc_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">1</field>
+        <field name="price">39.19</field>
+    </record>
+    <record id="tariff_dom_intc_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">2</field>
+        <field name="price">53.99</field>
+    </record>
+    <record id="tariff_dom_intc_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">5</field>
+        <field name="price">78.69</field>
+    </record>
+    <record id="tariff_dom_intc_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">10</field>
+        <field name="price">148.99</field>
+    </record>
+    <record id="tariff_dom_intc_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">15</field>
+        <field name="price">210.79</field>
+    </record>
+    <record id="tariff_dom_intc_20kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_dom" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">20</field>
+        <field name="price">256.89</field>
+    </record>
+
+    <!-- Tariffs: relay -->
+    <record id="tariff_relay_fr_250g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.25</field>
+        <field name="price">4.79</field>
+    </record>
+    <record id="tariff_relay_fr_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">6.89</field>
+    </record>
+    <record id="tariff_relay_fr_750g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">0.75</field>
+        <field name="price">8.59</field>
+    </record>
+    <record id="tariff_relay_fr_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">1</field>
+        <field name="price">8.89</field>
+    </record>
+    <record id="tariff_relay_fr_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">2</field>
+        <field name="price">10.49</field>
+    </record>
+    <record id="tariff_relay_fr_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_relay" />
+        <field name="zone">FR</field>
+        <field name="max_weight">5</field>
+        <field name="price">16.69</field>
+    </record>
+
+    <!-- Tariffs: eco_om -->
+    <record id="tariff_eco_om_om1_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">8.41</field>
+    </record>
+    <record id="tariff_eco_om_om1_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">1</field>
+        <field name="price">11.73</field>
+    </record>
+    <record id="tariff_eco_om_om1_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">2</field>
+        <field name="price">14.77</field>
+    </record>
+    <record id="tariff_eco_om_om1_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">5</field>
+        <field name="price">24.8</field>
+    </record>
+    <record id="tariff_eco_om_om1_10kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">10</field>
+        <field name="price">39.24</field>
+    </record>
+    <record id="tariff_eco_om_om1_15kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">15</field>
+        <field name="price">79.42</field>
+    </record>
+    <record id="tariff_eco_om_om1_30kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_eco_om" />
+        <field name="zone">OM1</field>
+        <field name="max_weight">30</field>
+        <field name="price">91.53</field>
+    </record>
+
+    <!-- Tariffs: pae -->
+    <record id="tariff_pae_fr_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">FR</field>
+        <field name="max_weight">1</field>
+        <field name="price">10.99</field>
+    </record>
+    <record id="tariff_pae_fr_3kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">FR</field>
+        <field name="max_weight">3</field>
+        <field name="price">10.49</field>
+    </record>
+    <record id="tariff_pae_fr_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">FR</field>
+        <field name="max_weight">5</field>
+        <field name="price">14.99</field>
+    </record>
+    <record id="tariff_pae_eu_3kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">EU</field>
+        <field name="max_weight">3</field>
+        <field name="price">22.49</field>
+    </record>
+    <record id="tariff_pae_eu_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">EU</field>
+        <field name="max_weight">5</field>
+        <field name="price">29.39</field>
+    </record>
+    <record id="tariff_pae_intc_5kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">5</field>
+        <field name="price">58.49</field>
+    </record>
+    <record id="tariff_pae_intc_7kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_laposte_pae" />
+        <field name="zone">INTC</field>
+        <field name="max_weight">7</field>
+        <field name="price">80.99</field>
+    </record>
+</odoo>

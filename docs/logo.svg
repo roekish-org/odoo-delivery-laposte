@@ -1,0 +1,24 @@
+<svg width="600" height="160" viewBox="0 0 600 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="delivery_laposte, Colissimo pour Odoo">
+  <defs>
+    <linearGradient id="lbg" x1="16" y1="32" x2="112" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBC531"/>
+      <stop offset="1" stop-color="#F0932B"/>
+    </linearGradient>
+  </defs>
+  <!-- icon -->
+  <g transform="translate(16,32)">
+    <rect width="96" height="96" rx="21" fill="url(#lbg)"/>
+    <g transform="scale(0.75)">
+      <path d="M64 28 L100 47 L100 85 L64 104 L28 85 L28 47 Z" fill="#22344F"/>
+      <path d="M64 28 L100 47 L64 66 L28 47 Z" fill="#2C4468"/>
+      <path d="M64 66 L100 47 L100 85 L64 104 Z" fill="#1C2C44"/>
+      <path d="M28 47 L64 66 L100 47" stroke="#FBC531" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <path d="M64 66 L64 104" stroke="#FBC531" stroke-width="3" fill="none"/>
+      <circle cx="64" cy="48" r="8.5" fill="#FFFFFF"/>
+      <circle cx="64" cy="48" r="3.6" fill="#F0932B"/>
+    </g>
+  </g>
+  <!-- wordmark -->
+  <text x="132" y="84" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="44" font-weight="700" fill="#EA8C1C">delivery_laposte</text>
+  <text x="134" y="116" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="500" fill="#7A8699">Colissimo &#183; La Poste &#183; Odoo 19</text>
+</svg>

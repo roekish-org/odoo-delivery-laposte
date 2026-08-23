@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_laposte_tariff_user,delivery.laposte.tariff user,model_delivery_laposte_tariff,group_laposte_user,1,0,0,0
+access_delivery_laposte_tariff_manager,delivery.laposte.tariff manager,model_delivery_laposte_tariff,group_laposte_manager,1,1,1,1
+access_delivery_laposte_pickup_wizard,delivery.laposte.pickup.wizard user,model_delivery_laposte_pickup_wizard,group_laposte_user,1,1,1,1
+access_delivery_laposte_pickup_line,delivery.laposte.pickup.line user,model_delivery_laposte_pickup_line,group_laposte_user,1,1,1,1

@@ -1,0 +1,19 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="delivery_laposte">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBC531"/>
+      <stop offset="1" stop-color="#F0932B"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- isometric parcel -->
+  <path d="M64 28 L100 47 L100 85 L64 104 L28 85 L28 47 Z" fill="#22344F"/>
+  <path d="M64 28 L100 47 L64 66 L28 47 Z" fill="#2C4468"/>
+  <path d="M64 66 L100 47 L100 85 L64 104 Z" fill="#1C2C44"/>
+  <!-- seams -->
+  <path d="M28 47 L64 66 L100 47" stroke="#FBC531" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <path d="M64 66 L64 104" stroke="#FBC531" stroke-width="3" fill="none"/>
+  <!-- tracking pin -->
+  <circle cx="64" cy="48" r="8.5" fill="#FFFFFF"/>
+  <circle cx="64" cy="48" r="3.6" fill="#F0932B"/>
+</svg>

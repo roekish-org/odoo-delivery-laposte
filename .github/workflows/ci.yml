@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: ["19.0"]
+  pull_request:
+    branches: ["19.0"]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    container: odoo:19.0
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U odoo"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python dependencies
+        run: pip3 install --no-cache-dir --break-system-packages roulier zeep
+      - name: Install module and run tests
+        run: |
+          odoo \
+            --addons-path=/usr/lib/python3/dist-packages/odoo/addons,${GITHUB_WORKSPACE} \
+            --db_host=db --db_port=5432 --db_user=odoo --db_password=odoo \
+            -d ci_test -i delivery_laposte \
+            --without-demo=False \
+            --test-enable --test-tags=/delivery_laposte \
+            --stop-after-init --log-level=test
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install black flake8
+      - name: black
+        run: black --check --line-length 88 delivery_laposte
+      - name: flake8
+        run: flake8 delivery_laposte
