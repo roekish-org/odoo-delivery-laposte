@@ -12,10 +12,11 @@ class LapostePickupMixin(models.AbstractModel):
 
     laposte_pickup_point_code = fields.Char(string="Pickup point ID", copy=False)
     laposte_pickup_point_name = fields.Char(string="Pickup point", copy=False)
-    laposte_pickup_point_street = fields.Char(copy=False)
-    laposte_pickup_point_zip = fields.Char(copy=False)
-    laposte_pickup_point_city = fields.Char(copy=False)
+    laposte_pickup_point_street = fields.Char(string="Pickup point street", copy=False)
+    laposte_pickup_point_zip = fields.Char(string="Pickup point ZIP", copy=False)
+    laposte_pickup_point_city = fields.Char(string="Pickup point city", copy=False)
     laposte_is_pickup = fields.Boolean(
+        string="La Poste pickup delivery",
         compute="_compute_laposte_is_pickup",
         help="The selected carrier delivers to a La Poste pickup point.",
     )

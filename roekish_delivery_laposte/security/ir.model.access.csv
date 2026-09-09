@@ -3,3 +3,5 @@ access_delivery_laposte_tariff_user,delivery.laposte.tariff user,model_delivery_
 access_delivery_laposte_tariff_manager,delivery.laposte.tariff manager,model_delivery_laposte_tariff,group_laposte_manager,1,1,1,1
 access_delivery_laposte_pickup_wizard,delivery.laposte.pickup.wizard user,model_delivery_laposte_pickup_wizard,group_laposte_user,1,1,1,1
 access_delivery_laposte_pickup_line,delivery.laposte.pickup.line user,model_delivery_laposte_pickup_line,group_laposte_user,1,1,1,1
+access_delivery_laposte_pickup_wizard_sale,delivery.laposte.pickup.wizard sale,model_delivery_laposte_pickup_wizard,sales_team.group_sale_salesman,1,1,1,1
+access_delivery_laposte_pickup_line_sale,delivery.laposte.pickup.line sale,model_delivery_laposte_pickup_line,sales_team.group_sale_salesman,1,1,1,1

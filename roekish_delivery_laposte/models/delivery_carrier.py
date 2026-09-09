@@ -301,27 +301,63 @@ class DeliveryCarrier(models.Model):
         installed library version; keys below follow the laposte_fr encoder.
         """
         self.ensure_one()
-        company_partner = self.company_id.partner_id
+        self._laposte_check_shipment(picking)
+        # Credentials are manager-only fields; read them with sudo so the
+        # label flow works for any user allowed to ship. They never leave
+        # the server.
+        creds = self.sudo()
+        company = self.company_id or self.env.company
         weight = picking.shipping_weight or picking.weight or 0.0
         service = {
             "productCode": self.laposte_product_code,
             "labelFormat": self.laposte_label_format,
             "shippingDate": fields.Date.context_today(picking).isoformat(),
-            "commercialName": self.company_id.name,
+            "commercialName": company.name,
             "returnTypeChoice": 3,  # do not return to sender
         }
         if picking.laposte_pickup_point_code:
             service["pickupLocationId"] = picking.laposte_pickup_point_code
         return {
             "auth": {
-                "login": self.laposte_account or "",
-                "password": self.laposte_password or "",
+                "login": creds.laposte_account or "",
+                "password": creds.laposte_password or "",
             },
             "service": service,
             "parcels": [{"weight": weight}],
-            "from_address": self._laposte_convert_address(company_partner),
+            "from_address": self._laposte_convert_address(company.partner_id),
             "to_address": self._laposte_convert_address(picking.partner_id),
         }
+
+    def _laposte_check_shipment(self, picking):
+        """Fail closed, with a clear message, before calling La Poste.
+
+        Colissimo rejects zero-weight parcels and incomplete addresses with
+        opaque codes, so validate the obvious cases up front.
+        """
+        weight = picking.shipping_weight or picking.weight or 0.0
+        if weight <= 0:
+            raise UserError(
+                self.env._(
+                    "Set a shipping weight on %s before generating a La Poste "
+                    "label.",
+                    picking.name,
+                )
+            )
+        partner = picking.partner_id
+        missing = [
+            partner._fields[name].string
+            for name in ("street", "zip", "city", "country_id")
+            if not partner[name]
+        ]
+        if missing:
+            raise UserError(
+                self.env._(
+                    "The delivery address of %(picking)s is incomplete "
+                    "(missing: %(fields)s).",
+                    picking=picking.name,
+                    fields=", ".join(missing),
+                )
+            )
 
     def _laposte_mask_secrets(self, text):
         """Redact the account password from any carrier/library message."""
@@ -361,14 +397,15 @@ class DeliveryCarrier(models.Model):
         non-destructive connectivity and authentication check.
         """
         self.ensure_one()
-        if not (self.laposte_account and self.laposte_password):
+        creds = self.sudo()
+        if not (creds.laposte_account and creds.laposte_password):
             raise UserError(
                 self.env._(
                     "Fill the contract number and password before testing "
                     "the connection."
                 )
             )
-        company_partner = self.company_id.partner_id
+        company_partner = (self.company_id or self.env.company).partner_id
         points = self._laposte_call_pickup_ws(
             company_partner.zip or "75001",
             company_partner.city or "Paris",
@@ -401,7 +438,8 @@ class DeliveryCarrier(models.Model):
         testable without an account.
         """
         self.ensure_one()
-        if self.laposte_account and self.laposte_password:
+        creds = self.sudo()
+        if creds.laposte_account and creds.laposte_password:
             return self._laposte_call_pickup_ws(zipcode, city, country_code, weight)
         return self._laposte_demo_pickup_points(zipcode, city)
 
@@ -414,14 +452,15 @@ class DeliveryCarrier(models.Model):
                     "pickup points. Install it with: pip install zeep"
                 )
             )
+        creds = self.sudo()
         client = ZeepClient(PICKUP_WSDL)
         today = fields.Date.context_today(self)
         try:
             # Parameter names follow the Point Retrait WS 2.0 contract; adjust
             # to the WSDL version you subscribe to if it rejects the call.
             response = client.service.findRDVPointRetraitAcheminement(
-                accountNumber=self.laposte_account,
-                password=self.laposte_password,
+                accountNumber=creds.laposte_account,
+                password=creds.laposte_password,
                 address=" ",
                 zipCode=zipcode or "",
                 city=city or "",

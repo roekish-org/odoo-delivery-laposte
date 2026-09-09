@@ -194,11 +194,15 @@ fails closed with a clear message if its library is missing.
   sandbox** with an instant API key, useful to test parcel tracking.
 
 ### What is already verified (no account needed)
-- `make test` runs 8 tests: zone mapping, grid rating, rate_shipment,
-  demo/offline pickup, sale→delivery pickup propagation, and a **mocked
-  label generation** (`test_send_shipping_mocked`) that drives the real
-  `send_shipping` code against roulier's response shape and asserts the label
-  is attached and the tracking number stored.
+- `make test` runs the module suite: zone mapping, grid and rule-based
+  rating, tracking link, cancellation, secret masking, demo/offline pickup,
+  sale→delivery pickup propagation, the Colissimo `errorCode` handling and
+  non-administrator access to pickup search (both with a mocked SOAP client),
+  the fail-closed guards (missing library, zero weight, incomplete address,
+  shared carrier without company), and a **mocked label generation**
+  (`test_send_shipping_mocked`) that drives the real `send_shipping` code
+  against roulier's response shape and asserts the label is attached and the
+  tracking number stored.
 - The **pickup web service path is verified against the live Colissimo
   server**: our *Test connection* button reaches `ws.colissimo.fr`, and with
   invalid credentials Colissimo replies `errorCode 201 – Identifiant / mot de
