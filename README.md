@@ -50,6 +50,11 @@ Copiez `roekish_delivery_laposte/` dans votre `addons_path`, puis installez le m
 depuis *Applications*. La tarification fonctionne **sans aucune librairie
 externe**.
 
+> Déployez le module via l'`addons_path` uniquement (Odoo.sh ou On-Premise).
+> *Applications > Importer un module* (zip) ne charge que les données, jamais
+> les modèles Python : l'installation échoue dès la première référence à un
+> modèle.
+
 ## Démo locale (Docker)
 
 Pile Odoo 19 + PostgreSQL fournie pour tester immédiatement :
