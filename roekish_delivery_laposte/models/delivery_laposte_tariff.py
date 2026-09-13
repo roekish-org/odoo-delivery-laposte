@@ -6,6 +6,7 @@ from odoo import fields, models
 # Colissimo pricing zones, mirroring La Poste's published "affranchissement"
 # grids: France, the two overseas priority zones, EU+Switzerland, the United
 # Kingdom (priced apart since Brexit) and the two international zones.
+# Delivengo (international small goods) is priced on two zones of its own.
 LAPOSTE_ZONES = [
     ("FR", "France (metropolitan, Monaco, Andorra)"),
     ("OM1", "Overseas zone 1"),
@@ -14,6 +15,8 @@ LAPOSTE_ZONES = [
     ("UK", "United Kingdom"),
     ("INTB", "International zone B"),
     ("INTC", "International zone C"),
+    ("DGO1", "Delivengo zone 1 (European Union + United Kingdom)"),
+    ("DGO2", "Delivengo zone 2 (rest of the world)"),
 ]
 
 

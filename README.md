@@ -5,8 +5,8 @@
 <h1 align="center">roekish_delivery_laposte</h1>
 
 <p align="center">
-  <strong>Expédiez avec La Poste / Colissimo depuis Odoo 19.</strong><br>
-  Tarification, étiquettes, suivi, points de retrait.
+  <strong>Expédiez avec La Poste depuis Odoo 19 : Colissimo et Delivengo.</strong><br>
+  Tarification, étiquettes, suivi, points de retrait, douane.
 </p>
 
 <p align="center">
@@ -26,7 +26,8 @@
 | **Tarification** | Prix calculé depuis une **grille tarifaire Colissimo** (poids × zone) ou les **règles de prix natives** d'Odoo. Point d'extension `_laposte_get_live_price` (fail-closed) pour un futur service de cotation. |
 | **Étiquettes** | Génération d'étiquette Colissimo via [`roulier`](https://pypi.org/project/roulier/) ; numéro de suivi enregistré sur le bon de livraison. |
 | **Points de retrait** | Recherche des relais proches (web service Colissimo *Point Retrait* via `zeep`), sélectionnable sur le **devis** et le **bon de livraison**, propagé à la validation. |
-| **Suivi** | Lien de suivi Colissimo pour le client. |
+| **Suivi** | Lien de suivi La Poste pour le client. |
+| **Delivengo** | Second fournisseur pour les **petites marchandises à l'international** (2 kg max) : étiquette et documents douaniers **CN22/CN23** via l'API REST MyDelivengo (easy ou Profil), annulation, grille 2 zones. Aucune librairie externe. |
 
 Bâti sur le framework de livraison natif d'Odoo (`delivery` / `stock_delivery`).
 Une **seule dépendance** de module ; `roulier` et `zeep` sont importés à la
@@ -36,19 +37,24 @@ demande et **fail-closed** si absents. Le module reste léger et installable.
 
 Grilles Colissimo 2026 fournies en démo, **éditables** par vos utilisateurs :
 France, Outre-mer (OM1/OM2), UE + Suisse, Royaume-Uni, zones internationales
-B et C. Quatre transporteurs prêts à l'emploi :
+B et C. Cinq transporteurs prêts à l'emploi :
 
-`Domicile` &nbsp; `Point Retrait` &nbsp; `Éco Outre-mer` &nbsp; `Prêt-à-Envoyer`
+`Domicile` &nbsp; `Point Retrait` &nbsp; `Éco Outre-mer` &nbsp; `Prêt-à-Envoyer` &nbsp; `Delivengo easy`
+
+Delivengo est tarifé sur deux zones (UE + Royaume-Uni, reste du monde) et
+quatre tranches de poids jusqu'à 2 kg, d'après la grille publique Delivengo
+easy.
 
 ## Installation
 
 ```bash
-pip install roulier zeep          # optionnel : étiquettes + points de retrait
+pip install roulier zeep          # optionnel : étiquettes + points de retrait Colissimo
 ```
 
 Copiez `roekish_delivery_laposte/` dans votre `addons_path`, puis installez le module
 depuis *Applications*. La tarification fonctionne **sans aucune librairie
-externe**.
+externe**, et Delivengo n'en demande aucune : l'API MyDelivengo est appelée
+avec `requests`, déjà fourni par Odoo.
 
 > Déployez le module via l'`addons_path` uniquement (Odoo.sh ou On-Premise).
 > *Applications > Importer un module* (zip) ne charge que les données, jamais
@@ -67,8 +73,8 @@ make test   # suite de tests du module
 
 ## Sécurité
 
-- Identifiants Colissimo réservés au groupe **Administrateur La Poste** ;
-  secrets masqués dans les messages d'erreur.
+- Identifiants Colissimo et clé API Delivengo réservés au groupe
+  **Administrateur La Poste** ; secrets masqués dans les messages d'erreur.
 - Droits d'accès fins : groupes **Utilisateur** et **Administrateur** dédiés.
 - Isolation multi-société sur les grilles tarifaires.
 

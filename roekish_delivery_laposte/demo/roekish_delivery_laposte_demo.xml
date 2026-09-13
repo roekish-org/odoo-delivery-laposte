@@ -45,6 +45,16 @@
         <field name="invoice_policy">order</field>
     </record>
 
+    <record id="product_delivery_delivengo_easy" model="product.product">
+        <field name="name">Delivengo easy</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries" />
+        <field name="sale_ok" eval="False" />
+        <field name="purchase_ok" eval="False" />
+        <field name="list_price">0.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+
     <!-- ===================== Carriers ===================== -->
     <record id="delivery_carrier_laposte_dom" model="delivery.carrier">
         <field name="name">La Poste - Colissimo Domicile</field>
@@ -527,5 +537,67 @@
         <field name="zone">INTC</field>
         <field name="max_weight">7</field>
         <field name="price">80.99</field>
+    </record>
+
+    <!-- Delivengo easy: international small goods up to 2 kg, published
+         public grid (HT), zone 1 = EU + UK, zone 2 = rest of the world. -->
+    <record id="delivery_carrier_delivengo_easy" model="delivery.carrier">
+        <field name="name">La Poste - Delivengo easy</field>
+        <field name="delivery_type">delivengo</field>
+        <field name="product_id" ref="product_delivery_delivengo_easy" />
+        <field name="integration_level">rate_and_ship</field>
+        <field name="delivengo_support">33</field>
+        <field name="delivengo_label_format">32</field>
+        <field name="laposte_pricing_method">grid</field>
+    </record>
+
+    <!-- Tariffs: delivengo easy -->
+    <record id="tariff_delivengo_dgo1_250g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO1</field>
+        <field name="max_weight">0.25</field>
+        <field name="price">6.46</field>
+    </record>
+    <record id="tariff_delivengo_dgo1_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO1</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">7.48</field>
+    </record>
+    <record id="tariff_delivengo_dgo1_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO1</field>
+        <field name="max_weight">1</field>
+        <field name="price">8.93</field>
+    </record>
+    <record id="tariff_delivengo_dgo1_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO1</field>
+        <field name="max_weight">2</field>
+        <field name="price">12.67</field>
+    </record>
+    <record id="tariff_delivengo_dgo2_250g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO2</field>
+        <field name="max_weight">0.25</field>
+        <field name="price">12.90</field>
+    </record>
+    <record id="tariff_delivengo_dgo2_500g" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO2</field>
+        <field name="max_weight">0.5</field>
+        <field name="price">15.50</field>
+    </record>
+    <record id="tariff_delivengo_dgo2_1kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO2</field>
+        <field name="max_weight">1</field>
+        <field name="price">22.90</field>
+    </record>
+    <record id="tariff_delivengo_dgo2_2kg" model="delivery.laposte.tariff">
+        <field name="carrier_id" ref="delivery_carrier_delivengo_easy" />
+        <field name="zone">DGO2</field>
+        <field name="max_weight">2</field>
+        <field name="price">34.90</field>
     </record>
 </odoo>

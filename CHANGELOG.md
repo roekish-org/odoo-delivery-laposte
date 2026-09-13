@@ -3,6 +3,31 @@
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet suit le versionnage des modules Odoo (`19.0.x.y.z`).
 
+## [19.0.1.2.0] - 2026-09-13
+
+### Ajouté
+
+- Fournisseur **La Poste / Delivengo** pour les petites marchandises à
+  l'international (2 kg max) : étiquette et documents douaniers CN22/CN23
+  générés via l'API REST MyDelivengo 2.5 (comptes easy et Profil), numéro de
+  suivi, annulation de l'envoi sur MyDelivengo, test de connexion.
+- Grille tarifaire Delivengo sur deux zones (UE + Royaume-Uni, reste du
+  monde), avec le transporteur de démo *Delivengo easy* et sa grille publique.
+- Déclaration douanière construite depuis les lignes du bon de livraison :
+  code SH et pays d'origine du produit, quantité, poids, valeur, nature de
+  l'envoi, numéro de facture, frais de port.
+- Contrôles avant appel : destination hors France, poids inférieur ou égal à
+  2 kg, adresse complète, téléphone ou email du destinataire, État pour les
+  États-Unis, mobile français de l'expéditeur, code SH et poids des articles.
+- Champ *Delivengo shipment ID* sur le bon de livraison.
+- Tests : zones, tarification (grille et règles), charge utile avec et sans
+  douane, garde-fous, création et annulation d'envoi (API simulée), masquage
+  de la clé API dans les erreurs.
+
+### Modifié
+
+- Nom du module : *Delivery Carrier La Poste / Colissimo / Delivengo*.
+
 ## [19.0.1.1.0] - 2026-09-09
 
 ### Corrigé

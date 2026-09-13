@@ -53,6 +53,52 @@
                         invisible="laposte_pricing_method != 'base_on_rule'"
                     />
                 </page>
+                <page
+                    name="delivengo"
+                    string="Delivengo"
+                    invisible="delivery_type != 'delivengo'"
+                >
+                    <group>
+                        <group string="MyDelivengo account">
+                            <field
+                                name="delivengo_api_key"
+                                password="True"
+                            />
+                            <field name="delivengo_sender_mobile" />
+                            <button
+                                name="action_delivengo_test_connection"
+                                type="object"
+                                string="Test connection"
+                                icon="fa-plug"
+                                class="btn-link"
+                            />
+                        </group>
+                        <group string="Shipment">
+                            <field name="delivengo_support" />
+                            <field name="delivengo_label_format" />
+                            <field name="delivengo_shipment_nature" />
+                        </group>
+                    </group>
+                    <group string="Pricing">
+                        <field name="laposte_pricing_method" />
+                    </group>
+                    <field
+                        name="laposte_tariff_ids"
+                        invisible="laposte_pricing_method != 'grid'"
+                    >
+                        <list editable="bottom">
+                            <field name="zone" />
+                            <field name="max_weight" />
+                            <field name="price" />
+                            <field name="currency_id" column_invisible="1" />
+                        </list>
+                    </field>
+                    <field
+                        name="price_rule_ids"
+                        nolabel="1"
+                        invisible="laposte_pricing_method != 'base_on_rule'"
+                    />
+                </page>
             </xpath>
         </field>
     </record>

@@ -6,15 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20260723\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-09 20:53+0000\n"
+"POT-Creation-Date: 2026-09-13 13:40+0000\n"
 "PO-Revision-Date: 2026-09-09 20:53+0000\n"
 "Last-Translator: \n"
-"Language: fr\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "%s has no goods to declare to customs."
+msgstr "%s ne contient aucune marchandise à déclarer en douane."
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__delivengo_api_key
+#
+msgid "API key of the MyDelivengo account (Mon compte > Clé API). Readable only by La Poste administrators."
+msgstr "Clé API du compte MyDelivengo (Mon compte > Clé API). Lisible uniquement par les administrateurs La Poste."
 
 #. module: roekish_delivery_laposte
 #: model:res.groups,name:roekish_delivery_laposte.group_laposte_manager
@@ -122,15 +134,29 @@ msgid "Colissimo product code sent to the label web service."
 msgstr "Code produit Colissimo envoyé au web service d'étiquetage."
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__3
+msgid "Commercial sample"
+msgstr "Échantillon commercial"
+
+#. module: roekish_delivery_laposte
 #: model:res.groups,comment:roekish_delivery_laposte.group_laposte_manager
 msgid "Configure La Poste carriers, credentials and tariff grids."
-msgstr "Configurer les transporteurs La Poste, les identifiants et les grilles tarifaires."
+msgstr ""
+"Configurer les transporteurs La Poste, les identifiants et les grilles "
+"tarifaires."
 
 #. module: roekish_delivery_laposte
 #. odoo-python
 #: code:addons/roekish_delivery_laposte/models/delivery_carrier.py:0
 msgid "Connection successful, %s pickup points returned."
 msgstr "Connexion réussie, %s points de retrait renvoyés."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+#
+msgid "Connection successful, account %s."
+msgstr "Connexion réussie, compte %s."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_wizard__country_id
@@ -162,11 +188,158 @@ msgid "DPL (label printer)"
 msgstr "DPL (imprimante d'étiquettes)"
 
 #. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+#: model_terms:ir.ui.view,arch_db:roekish_delivery_laposte.view_delivery_carrier_form_laposte
+msgid "Delivengo"
+msgstr "Delivengo"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivengo_api_key
+msgid "Delivengo API key"
+msgstr "Clé API Delivengo"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_support__36
+msgid "Delivengo Economique"
+msgstr "Delivengo Économique"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_support__37
+msgid "Delivengo Prioritaire"
+msgstr "Delivengo Prioritaire"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_support__33
+msgid "Delivengo Suivi"
+msgstr "Delivengo Suivi"
+
+#. module: roekish_delivery_laposte
+#: model:product.template,name:roekish_delivery_laposte.product_delivery_delivengo_easy_product_template
+msgid "Delivengo easy"
+msgstr "Delivengo easy"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo is limited to %s kg per shipment."
+msgstr "Delivengo est limité à %s kg par envoi."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid ""
+"Delivengo is unreachable:\n"
+"%s"
+msgstr ""
+"Delivengo est injoignable :\n"
+"%s"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo label %s"
+msgstr "Étiquette Delivengo %s"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivengo_label_format
+#
+msgid "Delivengo label format"
+msgstr "Format d'étiquette Delivengo"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo only ships abroad. Use a Colissimo carrier for France and overseas destinations."
+msgstr "Delivengo n'expédie qu'à l'étranger. Utilisez un transporteur Colissimo pour la France et l'Outre-mer."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo only ships from France: set the country of company %s to France."
+msgstr "Delivengo n'expédie que depuis la France : définissez le pays de la société %s sur France."
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivengo_support
+#
+msgid "Delivengo product"
+msgstr "Produit Delivengo"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo rate limit reached, retry in a few seconds."
+msgstr "Quota de requêtes Delivengo atteint, réessayez dans quelques secondes."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo refused the API key."
+msgstr "Delivengo a refusé la clé API."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid ""
+"Delivengo rejected the request (HTTP %(code)s): %(description)s\n"
+"%(details)s"
+msgstr ""
+"Delivengo a rejeté la requête (HTTP %(code)s) : %(description)s\n"
+"%(details)s"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo requires a French mobile number for the sender (+336..., +337..., 06... or 07...). Set it on the carrier or on company %s."
+msgstr "Delivengo exige un numéro de portable français pour l'expéditeur (+336..., +337..., 06... ou 07...). Renseignez-le sur le transporteur ou sur la société %s."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo requires a phone number or an email on the recipient %s."
+msgstr "Delivengo exige un numéro de téléphone ou un email sur le destinataire %s."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+#
+msgid "Delivengo requires the postage paid for shipments leaving the European Union: add a matching line to the tariff grid of carrier '%s'."
+msgstr "Delivengo exige les frais de port payés pour les envois quittant l'Union européenne : ajoutez une ligne correspondante à la grille tarifaire du transporteur '%s'."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Delivengo requires the state on US addresses (recipient %s)."
+msgstr "Delivengo exige l'État sur les adresses aux États-Unis (destinataire %s)."
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__delivengo_shipment_id
+msgid "Delivengo shipment ID"
+msgstr "ID d'envoi Delivengo"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__delivengo_support
+msgid "Delivengo support (service level) activated on your account."
+msgstr "Support Delivengo (niveau de service) activé sur votre compte."
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__dgo1
+msgid "Delivengo zone 1 (European Union + United Kingdom)"
+msgstr "Delivengo zone 1 (Union européenne + Royaume-Uni)"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__dgo2
+msgid "Delivengo zone 2 (rest of the world)"
+msgstr "Delivengo zone 2 (reste du monde)"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_laposte_tariff__price
 msgid ""
 "Delivery price charged to the customer, expressed in the carrier company "
 "currency."
-msgstr "Prix de livraison facturé au client, dans la devise de la société du transporteur."
+msgstr ""
+"Prix de livraison facturé au client, dans la devise de la société du "
+"transporteur."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__display_name
@@ -185,15 +358,28 @@ msgid "Distance (m)"
 msgstr "Distance (m)"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__2
+msgid "Document"
+msgstr "Document"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__eu
 msgid "European Union + Switzerland"
 msgstr "Union européenne + Suisse"
 
 #. module: roekish_delivery_laposte
 #. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Fill the Delivengo API key on carrier '%s' first."
+msgstr "Renseignez d'abord la clé API Delivengo sur le transporteur '%s'."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
 #: code:addons/roekish_delivery_laposte/models/delivery_carrier.py:0
 msgid "Fill the contract number and password before testing the connection."
-msgstr "Renseignez le numéro de contrat et le mot de passe avant de tester la connexion."
+msgstr ""
+"Renseignez le numéro de contrat et le mot de passe avant de tester la "
+"connexion."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__fr
@@ -201,17 +387,34 @@ msgid "France (metropolitan, Monaco, Andorra)"
 msgstr "France (métropole, Monaco, Andorre)"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__delivengo_sender_mobile
+msgid "French mobile number printed on the label and used by customs (+336..., +337..., 06... or 07...). Defaults to the company phone."
+msgstr "Numéro de portable français imprimé sur l'étiquette et utilisé par les douanes (+336..., +337..., 06... ou 07...). À défaut, le téléphone de la société."
+
+#. module: roekish_delivery_laposte
 #: model:res.groups,comment:roekish_delivery_laposte.group_laposte_user
 msgid "Generate La Poste labels, track parcels and pick relay points."
-msgstr "Générer les étiquettes La Poste, suivre les colis et choisir les points de retrait."
+msgstr ""
+"Générer les étiquettes La Poste, suivre les colis et choisir les points de "
+"retrait."
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__1
+msgid "Gift"
+msgstr "Cadeau"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__laposte_pricing_method
 msgid ""
 "How the delivery price is computed:\n"
-"- La Poste tariff grid: weight x destination zone lines defined on this carrier.\n"
+"- La Poste tariff grid: weight x destination zone lines defined on this "
+"carrier.\n"
 "- Odoo pricing rules: the standard rule-based pricing engine."
-msgstr "Mode de calcul du prix de livraison :\n- Grille tarifaire La Poste : lignes poids par zone de destination définies sur ce transporteur.\n- Règles de prix Odoo : le moteur de règles standard."
+msgstr ""
+"Mode de calcul du prix de livraison :\n"
+"- Grille tarifaire La Poste : lignes poids par zone de destination définies "
+"sur ce transporteur.\n"
+"- Règles de prix Odoo : le moteur de règles standard."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__id
@@ -223,6 +426,11 @@ msgstr "Mode de calcul du prix de livraison :\n- Grille tarifaire La Poste : lig
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__id
 msgid "ID"
 msgstr "ID"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,help:roekish_delivery_laposte.field_stock_picking__delivengo_shipment_id
+msgid "Identifier of the shipment (envoi) on MyDelivengo, used to cancel it."
+msgstr "Identifiant de l'envoi sur MyDelivengo, utilisé pour l'annuler."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__intb
@@ -262,6 +470,12 @@ msgid "La Poste - Colissimo Pret-a-Envoyer"
 msgstr "La Poste - Colissimo Prêt-à-Envoyer"
 
 #. module: roekish_delivery_laposte
+#: model:delivery.carrier,name:roekish_delivery_laposte.delivery_carrier_delivengo_easy
+#
+msgid "La Poste - Delivengo easy"
+msgstr "La Poste - Delivengo easy"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivery_type__laposte
 msgid "La Poste / Colissimo"
 msgstr "La Poste / Colissimo"
@@ -270,6 +484,12 @@ msgstr "La Poste / Colissimo"
 #: model:ir.model,name:roekish_delivery_laposte.model_delivery_laposte_tariff
 msgid "La Poste / Colissimo Tariff Grid Line"
 msgstr "Ligne de grille tarifaire La Poste / Colissimo"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivery_type__delivengo
+#
+msgid "La Poste / Delivengo"
+msgstr "La Poste / Delivengo"
 
 #. module: roekish_delivery_laposte
 #: model:ir.module.category,name:roekish_delivery_laposte.module_category_delivery_laposte
@@ -294,6 +514,13 @@ msgid "La Poste password"
 msgstr "Mot de passe La Poste"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_is_pickup
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_is_pickup
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_is_pickup
+msgid "La Poste pickup delivery"
+msgstr "Livraison en point de retrait La Poste"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model,name:roekish_delivery_laposte.model_delivery_laposte_pickup_line
 msgid "La Poste pickup point candidate"
 msgstr "Point de retrait La Poste proposé"
@@ -314,7 +541,9 @@ msgstr "Recherche de point de retrait La Poste"
 msgid ""
 "La Poste pickup search failed:\n"
 "%s"
-msgstr "La recherche de points de retrait La Poste a échoué :\n%s"
+msgstr ""
+"La recherche de points de retrait La Poste a échoué :\n"
+"%s"
 
 #. module: roekish_delivery_laposte
 #. odoo-python
@@ -328,7 +557,9 @@ msgstr "La Poste a refusé la requête (code %(code)s) : %(msg)s"
 msgid ""
 "La Poste rejected the shipment for %(picking)s:\n"
 "%(error)s"
-msgstr "La Poste a rejeté l'expédition pour %(picking)s :\n%(error)s"
+msgstr ""
+"La Poste a rejeté l'expédition pour %(picking)s :\n"
+"%(error)s"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__laposte_tariff_ids
@@ -342,40 +573,14 @@ msgstr "Grille tarifaire La Poste"
 msgid ""
 "La Poste tracking reference cleared in Odoo. If the parcel was already "
 "handed over, cancel it on the Colissimo portal."
-msgstr "Référence de suivi La Poste effacée dans Odoo. Si le colis a déjà été remis, annulez-le sur le portail Colissimo."
+msgstr ""
+"Référence de suivi La Poste effacée dans Odoo. Si le colis a déjà été remis, "
+"annulez-le sur le portail Colissimo."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__laposte_label_format
 msgid "Label format"
 msgstr "Format d'étiquette"
-
-#. module: roekish_delivery_laposte
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_is_pickup
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_is_pickup
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_is_pickup
-msgid "La Poste pickup delivery"
-msgstr "Livraison en point de retrait La Poste"
-
-#. module: roekish_delivery_laposte
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_city
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_city
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_city
-msgid "Pickup point city"
-msgstr "Ville du point de retrait"
-
-#. module: roekish_delivery_laposte
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_street
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_street
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_street
-msgid "Pickup point street"
-msgstr "Rue du point de retrait"
-
-#. module: roekish_delivery_laposte
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_zip
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_zip
-#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_zip
-msgid "Pickup point ZIP"
-msgstr "Code postal du point de retrait"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_line__write_uid
@@ -392,9 +597,26 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: roekish_delivery_laposte
+#: model_terms:ir.ui.view,arch_db:roekish_delivery_laposte.view_delivery_carrier_form_laposte
+msgid "MyDelivengo account"
+msgstr "Compte MyDelivengo"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_line__name
 msgid "Name"
 msgstr "Nom"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivengo_shipment_nature
+msgid "Nature of shipment"
+msgstr "Nature de l'envoi"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+#
+msgid "No Delivengo tariff matches this destination and weight. Add a matching line to the tariff grid of carrier '%s'."
+msgstr "Aucun tarif Delivengo ne correspond à cette destination et à ce poids. Ajoutez une ligne correspondante à la grille tarifaire du transporteur '%s'."
 
 #. module: roekish_delivery_laposte
 #. odoo-python
@@ -402,12 +624,19 @@ msgstr "Nom"
 msgid ""
 "No La Poste tariff matches this destination and weight. Add a matching line "
 "to the tariff grid of carrier '%s'."
-msgstr "Aucun tarif La Poste ne correspond à cette destination et à ce poids. Ajoutez une ligne correspondante à la grille tarifaire du transporteur '%s'."
+msgstr ""
+"Aucun tarif La Poste ne correspond à cette destination et à ce poids. "
+"Ajoutez une ligne correspondante à la grille tarifaire du transporteur '%s'."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__laposte_pricing_method__base_on_rule
 msgid "Odoo pricing rules"
 msgstr "Règles de prix Odoo"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__5
+msgid "Other"
+msgstr "Autre"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_laposte_tariff__zone__om1
@@ -420,6 +649,7 @@ msgid "Overseas zone 2"
 msgstr "Outre-mer zone 2"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_label_format__32
 #: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__laposte_label_format__pdf_10x15_300dpi
 msgid "PDF 10x15"
 msgstr "PDF 10x15"
@@ -430,11 +660,19 @@ msgid "PDF A4"
 msgstr "PDF A4"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_label_format__4
+#
+msgid "PDF A4 sheet"
+msgstr "Planche A4 PDF"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__laposte_password
 msgid ""
 "Password of the Colissimo web service account. Readable only by La Poste "
 "administrators."
-msgstr "Mot de passe du compte web service Colissimo. Lisible uniquement par les administrateurs La Poste."
+msgstr ""
+"Mot de passe du compte web service Colissimo. Lisible uniquement par les "
+"administrateurs La Poste."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_wizard__picking_id
@@ -454,6 +692,27 @@ msgstr "Point de retrait"
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_code
 msgid "Pickup point ID"
 msgstr "Identifiant du point de retrait"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_zip
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_zip
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_zip
+msgid "Pickup point ZIP"
+msgstr "Code postal du point de retrait"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_city
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_city
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_city
+msgid "Pickup point city"
+msgstr "Ville du point de retrait"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_pickup_point_street
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_sale_order__laposte_pickup_point_street
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_stock_picking__laposte_pickup_point_street
+msgid "Pickup point street"
+msgstr "Rue du point de retrait"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_wizard__line_ids
@@ -482,14 +741,29 @@ msgid "Pricing method"
 msgstr "Méthode de tarification"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_carrier__delivengo_shipment_nature
+msgid "Printed on the CN22/CN23 customs declaration of shipments leaving the European Union."
+msgstr "Imprimée sur la déclaration douanière CN22/CN23 des envois quittant l'Union européenne."
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivery_type
 msgid "Provider"
 msgstr "Fournisseur"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__4
+msgid "Return"
+msgstr "Retour"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_pickup_wizard__sale_id
 msgid "Sale"
 msgstr "Vente"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_shipment_nature__6
+msgid "Sale of goods"
+msgstr "Vente de marchandises"
 
 #. module: roekish_delivery_laposte
 #: model:ir.model,name:roekish_delivery_laposte.model_sale_order
@@ -507,10 +781,36 @@ msgid "Select"
 msgstr "Sélectionner"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_carrier__delivengo_sender_mobile
+msgid "Sender mobile phone"
+msgstr "Mobile expéditeur"
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Set a 6 to 10 digit HS code on product '%s' (Inventory tab): Delivengo needs it for the customs declaration."
+msgstr "Renseignez un code SH de 6 à 10 chiffres sur le produit '%s' (onglet Inventaire) : Delivengo en a besoin pour la déclaration douanière."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+#
+msgid "Set a shipping weight on %s before generating a Delivengo label."
+msgstr "Renseignez un poids d'expédition sur %s avant de générer une étiquette Delivengo."
+
+#. module: roekish_delivery_laposte
 #. odoo-python
 #: code:addons/roekish_delivery_laposte/models/delivery_carrier.py:0
 msgid "Set a shipping weight on %s before generating a La Poste label."
-msgstr "Renseignez un poids d'expédition sur %s avant de générer une étiquette La Poste."
+msgstr ""
+"Renseignez un poids d'expédition sur %s avant de générer une étiquette La "
+"Poste."
+
+#. module: roekish_delivery_laposte
+#. odoo-python
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
+msgid "Set a weight on product '%s': Delivengo needs it for the customs declaration."
+msgstr "Renseignez un poids sur le produit '%s' : Delivengo en a besoin pour la déclaration douanière."
 
 #. module: roekish_delivery_laposte
 #: model_terms:ir.ui.view,arch_db:roekish_delivery_laposte.view_delivery_carrier_form_laposte
@@ -538,7 +838,9 @@ msgstr "Tester la connexion"
 msgid ""
 "The Python library 'roulier' is required to generate La Poste labels. "
 "Install it with: pip install roulier"
-msgstr "La librairie Python 'roulier' est requise pour générer les étiquettes La Poste. Installez-la avec : pip install roulier"
+msgstr ""
+"La librairie Python 'roulier' est requise pour générer les étiquettes La "
+"Poste. Installez-la avec : pip install roulier"
 
 #. module: roekish_delivery_laposte
 #. odoo-python
@@ -546,14 +848,18 @@ msgstr "La librairie Python 'roulier' est requise pour générer les étiquettes
 msgid ""
 "The Python library 'zeep' is required to search La Poste pickup points. "
 "Install it with: pip install zeep"
-msgstr "La librairie Python 'zeep' est requise pour rechercher les points de retrait La Poste. Installez-la avec : pip install zeep"
+msgstr ""
+"La librairie Python 'zeep' est requise pour rechercher les points de retrait "
+"La Poste. Installez-la avec : pip install zeep"
 
 #. module: roekish_delivery_laposte
 #. odoo-python
 #: code:addons/roekish_delivery_laposte/models/delivery_carrier.py:0
+#: code:addons/roekish_delivery_laposte/models/delivery_carrier_delivengo.py:0
 msgid ""
 "The delivery address of %(picking)s is incomplete (missing: %(fields)s)."
-msgstr "L'adresse de livraison de %(picking)s est incomplète (manque : %(fields)s)."
+msgstr ""
+"L'adresse de livraison de %(picking)s est incomplète (manque : %(fields)s)."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_laposte_pickup_mixin__laposte_is_pickup
@@ -565,9 +871,11 @@ msgstr "Le transporteur sélectionné livre en point de retrait La Poste."
 #. module: roekish_delivery_laposte
 #: model:ir.model.fields,help:roekish_delivery_laposte.field_delivery_laposte_tariff__max_weight
 msgid ""
-"This line applies to shipments whose total weight is at or below this value,"
-" for the selected zone."
-msgstr "Cette ligne s'applique aux expéditions dont le poids total est inférieur ou égal à cette valeur, pour la zone sélectionnée."
+"This line applies to shipments whose total weight is at or below this value, "
+"for the selected zone."
+msgstr ""
+"Cette ligne s'applique aux expéditions dont le poids total est inférieur ou "
+"égal à cette valeur, pour la zone sélectionnée."
 
 #. module: roekish_delivery_laposte
 #: model:ir.model,name:roekish_delivery_laposte.model_stock_picking
@@ -620,7 +928,16 @@ msgid "ZPL (label printer)"
 msgstr "ZPL (imprimante d'étiquettes)"
 
 #. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_label_format__64
+msgid "ZPL 10x15 (203 dpi)"
+msgstr "ZPL 10x15 (203 dpi)"
+
+#. module: roekish_delivery_laposte
+#: model:ir.model.fields.selection,name:roekish_delivery_laposte.selection__delivery_carrier__delivengo_label_format__128
+msgid "ZPL 10x15 (300 dpi)"
+msgstr "ZPL 10x15 (300 dpi)"
+
+#. module: roekish_delivery_laposte
 #: model:ir.model.fields,field_description:roekish_delivery_laposte.field_delivery_laposte_tariff__zone
 msgid "Zone"
-
 msgstr "Zone"

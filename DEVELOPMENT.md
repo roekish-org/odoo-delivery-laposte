@@ -1,8 +1,9 @@
 # roekish_delivery_laposte: Development & Go-Live Guide
 
-Odoo 19 delivery carrier for **La Poste / Colissimo**: rating (tariff grid or
-Odoo rules), Colissimo label generation, parcel tracking and pickup-point
-(relay) selection. Owned by **ROEKISH**.
+Odoo 19 delivery carrier for **La Poste**: Colissimo (rating, labels,
+tracking, pickup points) and **Delivengo** (international small goods up to
+2 kg, labels with CN22/CN23 customs documents through the MyDelivengo REST
+API). Owned by **ROEKISH**.
 
 ---
 
@@ -39,14 +40,16 @@ The demo database is `colissimo` (override with `make init DB=mydb`).
 
 ## 3. What the demo ships
 
-Four ready-to-use carriers under *Inventory → Configuration → Shipping
-Methods*, each with a real, editable Colissimo 2026 grid:
+Five ready-to-use carriers under *Inventory → Configuration → Shipping
+Methods*, each with a real, editable grid:
 
 - **Colissimo Domicile**: full zone grid (FR, OM1, OM2, EU+CH, UK, Zone B,
   Zone C).
 - **Colissimo Point Retrait**: France relay grid (drives the pickup selector).
 - **Colissimo Éco Outre-mer**: overseas economy grid.
 - **Colissimo Prêt-à-Envoyer**: prepaid-packaging grid.
+- **Delivengo easy**: the public Delivengo easy grid, two zones (EU + UK,
+  rest of the world) and four brackets (250 g, 500 g, 1 kg, 2 kg).
 
 Demo grids are indicative public tariffs. Your users **copy a carrier and edit
 its grid** with their negotiated contract rates.
@@ -88,6 +91,63 @@ number in `carrier_tracking_ref`. The customer tracking link points to
 
 ---
 
+## 4b. Going live with a Delivengo account
+
+Delivengo is a separate La Poste service with its own account (Delivengo easy
+without contract, or Delivengo Profil with a contract) and its own REST API.
+Both account types use the same endpoints and the same API key mechanism.
+
+1. Create a shipping method with provider **La Poste / Delivengo**, or copy
+   the demo *Delivengo easy* carrier.
+2. **Delivengo** tab → paste the **API key** from MyDelivengo (*Mon compte >
+   Clé API*). The field is readable by La Poste *Administrators* only.
+3. Click **Test connection**: it reads the account owner
+   (`GET /utilisateurs/0`) and reports the account email or the exact API
+   error.
+4. Choose the **Delivengo product** (support) activated on your account:
+   Suivi (33), Economique (36) or Prioritaire (37), and the label format
+   (PDF 10x15, PDF A4 sheet, ZPL 203 or 300 dpi).
+5. Set the **sender mobile phone**: Delivengo requires a French mobile number
+   on the sender (+336, +337, 06 or 07). It defaults to the company phone.
+6. Set **Integration Level = Get Rate and Create Shipment**.
+
+### What the label call does
+On delivery validation Odoo sends `POST /envois` (API 2.5) with one *pli* per
+picking: sender (company), recipient, weight in grams, reference (sale order)
+and, when the destination is outside the EU customs union, a
+`documents_douaniers` block built from the delivery lines. The response carries
+the tracking number (`plis[].numero`), the label (`documents_supports`) and the
+customs documents (`documents_douaniers`, `factures`), all attached to the
+transfer. The MyDelivengo shipment id is stored on the picking
+(`delivengo_shipment_id`) so that cancelling the shipment in Odoo issues
+`DELETE /envois/{id}` on MyDelivengo.
+
+### Customs data (CN22 / CN23)
+For each non-service product on the delivery, Delivengo needs:
+
+- an **HS code** of 6 to 10 digits (`product.hs_code`, Inventory tab),
+- a **weight** (`product.weight`),
+- a **country of origin** (`product.country_of_origin`, defaults to the company
+  country),
+- the value (sale line unit price after discount, or the list price).
+
+Shipment nature (sale of goods, sample, gift, ...) is set on the carrier. The
+invoice number is the posted customer invoice of the sale order, or the sale
+order name. The postage comes from the tariff grid (Delivengo requires a value
+above zero for zone 2). Any missing data raises a clear error before the call.
+
+Constraints enforced before the call: destination abroad (France, Monaco and
+overseas territories are refused, use Colissimo), weight at most 2 kg, complete
+address, phone or email on the recipient, state code on US addresses, French
+mobile on the sender, company located in France.
+
+Delivengo rate-limits the API at 15 requests per 5 seconds; a 429 answer is
+surfaced as a retry message. Delivengo also rejects non-latin characters in
+recipient addresses and a list of forbidden words in names; both come back as
+`400` with a detailed message that the module flattens into the error.
+
+---
+
 ## 5. Pricing model
 
 `laposte_rate_shipment` resolves a price in this order:
@@ -107,6 +167,13 @@ Zone → country mapping lives in `models/delivery_carrier.py`
 (`FR_COUNTRY_CODES`, `OM1/OM2`, `EU`, `INTB`, …). **Zone B's country list is a
 representative subset**. Complete it from La Poste's official zone tables
 before finalizing international pricing.
+
+`delivengo_rate_shipment` (`models/delivery_carrier_delivengo.py`) first
+refuses destinations Delivengo does not serve and parcels above 2 kg, then
+applies the same pricing method: grid on the Delivengo zones (`DGO1` = EU +
+UK, `DGO2` = rest of the world, Switzerland included) or Odoo rules. Delivengo
+Profil contracts may be priced on finer zones: use Odoo rules, or one carrier
+per country group with the `Countries` restriction of the carrier.
 
 ---
 
@@ -150,13 +217,16 @@ confirmation, and is sent to Colissimo as `pickupLocationId` on the label.
 
 ## 8. Go-live checklist
 
-- [ ] `make init && make up`, log in, confirm the four demo carriers load.
+- [ ] `make init && make up`, log in, confirm the five demo carriers load.
 - [ ] Enter real credentials on a carrier and click **Test connection**.
 - [ ] Replace demo grid lines with your contract tariffs.
 - [ ] Complete Zone B country list if you ship there.
 - [ ] Generate one real label end-to-end (confirm a delivery with the carrier).
 - [ ] Verify the label format string is accepted by your `roulier` version.
 - [ ] Test one pickup-point selection with real credentials.
+- [ ] Delivengo: paste the API key, **Test connection**, set the sender mobile,
+      fill HS codes and weights on exported products, then create one real
+      shipment to a non-EU destination and check the label and CN23 PDF.
 
 ---
 
@@ -168,12 +238,12 @@ odoo_dev/
 ├── docker/                   # Dockerfile (roulier, zeep) + odoo.conf
 ├── Makefile                  # init / up / test / shell / reset
 └── roekish_delivery_laposte/         # the Odoo module
-    ├── models/               # carrier, tariff, pickup mixin, sale, picking
+    ├── models/               # carrier (Colissimo, Delivengo), tariff, pickup mixin, sale, picking
     ├── wizards/              # pickup-point search wizard
     ├── views/                # carrier, sale order, picking forms
     ├── security/             # groups, privilege, ACLs, record rule
     ├── demo/                 # real Colissimo 2026 tariff grids
-    └── tests/                # rating, zones, pickup, propagation
+    └── tests/                # rating, zones, pickup, propagation, Delivengo
 ```
 
 Runtime deps (`roulier`, `zeep`) are imported lazily and are **not** declared
@@ -210,9 +280,21 @@ fails closed with a clear message if its library is missing.
   failures in the response body, not as a SOAP fault, so this is checked
   explicitly).
 
+### Delivengo
+- The API needs a MyDelivengo account (easy or Profil); there is no public
+  sandbox. The `api-creation-mode: simulation` request header validates a
+  `POST /envois` body without creating anything, useful for a dry run.
+- `make test` covers the Delivengo flow with a mocked HTTP client
+  (`tests/test_delivengo.py`): zones, grid and rule rating with the 2 kg
+  limit, payload with and without customs, all fail-closed guards, shipment
+  creation (label attached, tracking and shipment id stored), validation
+  errors flattened and API key masked, cancellation (`DELETE`), test
+  connection.
+
 ### What still needs a real account
 - Generating an actual label end-to-end (valid `roulier` `get_label` call).
 - Listing real pickup points (valid Point Retrait credentials).
+- Creating a real Delivengo shipment (valid MyDelivengo API key).
 
 ### How to check a real account
 1. Enter the credentials on a carrier → **Test connection**. Success means the
