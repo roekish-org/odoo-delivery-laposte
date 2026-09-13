@@ -48,6 +48,11 @@ data you control:
   international zones B and C.
 * **Odoo pricing rules**: the standard ``base_on_rule`` engine.
 
+Every quote also reports the announced **delivery time** in working days
+(``delay_min`` / ``delay_max`` in the ``rate_shipment`` result, shown in the
+shipping wizard). Set it on the carrier and override it per zone on the
+tariff grid, then compare carriers on cost and speed.
+
 ``delivery.carrier._laposte_get_live_price`` is a fail-closed extension point.
 Override it to plug a rating endpoint (for example a third-party aggregator)
 without touching the rest of the flow.

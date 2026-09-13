@@ -147,6 +147,21 @@ class TestDeliveryDelivengo(TransactionCase):
         res = self.carrier.delivengo_rate_shipment(order)
         self.assertEqual(res["price"], 34.90)
 
+    def test_rate_shipment_delivery_time(self):
+        self.carrier.write({"laposte_delay_min": 4, "laposte_delay_max": 7})
+        self.carrier.laposte_tariff_ids.filtered(lambda t: t.zone == "DGO2").write(
+            {"delay_min": 7, "delay_max": 15}
+        )
+        res = self.carrier.delivengo_rate_shipment(
+            self._order(self._partner("base.de"))
+        )
+        self.assertEqual((res["delay_min"], res["delay_max"]), (4, 7))
+        self.assertEqual(res["warning_message"], "Delivery in 4 to 7 working days.")
+        res = self.carrier.delivengo_rate_shipment(
+            self._order(self._partner("base.us"))
+        )
+        self.assertEqual((res["delay_min"], res["delay_max"]), (7, 15))
+
     def test_rate_shipment_refuses_france_and_heavy_parcels(self):
         res = self.carrier.delivengo_rate_shipment(
             self._order(self._partner("base.fr"))

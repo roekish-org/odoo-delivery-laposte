@@ -90,11 +90,15 @@ class DeliveryCarrierDelivengo(models.Model):
     # Rating
     # ------------------------------------------------------------------
     def delivengo_rate_shipment(self, order):
-        """Return a delivery quote for ``order`` (sale.order)."""
+        """Return a delivery quote for ``order`` (sale.order).
+
+        On success the dict also carries ``delay_min`` and ``delay_max``
+        (working days, 0 when unknown), see ``_laposte_with_delay``.
+        """
         self.ensure_one()
-        error = self._delivengo_check_destination(
-            order.partner_shipping_id.country_id, order._get_estimated_weight()
-        )
+        country = order.partner_shipping_id.country_id
+        weight = order._get_estimated_weight()
+        error = self._delivengo_check_destination(country, weight)
         if error:
             return {
                 "success": False,
@@ -102,12 +106,12 @@ class DeliveryCarrierDelivengo(models.Model):
                 "error_message": error,
                 "warning_message": False,
             }
+        zone = self._delivengo_get_zone(country)
         if self.laposte_pricing_method == "base_on_rule":
-            return self.base_on_rule_rate_shipment(order)
-        price = self._laposte_grid_rate(
-            self._delivengo_get_zone(order.partner_shipping_id.country_id),
-            order._get_estimated_weight(),
-        )
+            return self._laposte_with_delay(
+                self.base_on_rule_rate_shipment(order), zone, weight
+            )
+        price = self._laposte_grid_rate(zone, weight)
         if price is None:
             return {
                 "success": False,
@@ -119,12 +123,16 @@ class DeliveryCarrierDelivengo(models.Model):
                 ),
                 "warning_message": False,
             }
-        return {
-            "success": True,
-            "price": price,
-            "error_message": False,
-            "warning_message": False,
-        }
+        return self._laposte_with_delay(
+            {
+                "success": True,
+                "price": price,
+                "error_message": False,
+                "warning_message": False,
+            },
+            zone,
+            weight,
+        )
 
     @api.model
     def _delivengo_get_zone(self, country):

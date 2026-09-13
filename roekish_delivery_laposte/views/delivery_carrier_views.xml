@@ -35,6 +35,8 @@
                     </group>
                     <group string="Pricing">
                         <field name="laposte_pricing_method" />
+                        <field name="laposte_delay_min" />
+                        <field name="laposte_delay_max" />
                     </group>
                     <field
                         name="laposte_tariff_ids"
@@ -44,6 +46,8 @@
                             <field name="zone" />
                             <field name="max_weight" />
                             <field name="price" />
+                            <field name="delay_min" />
+                            <field name="delay_max" />
                             <field name="currency_id" column_invisible="1" />
                         </list>
                     </field>
@@ -81,6 +85,8 @@
                     </group>
                     <group string="Pricing">
                         <field name="laposte_pricing_method" />
+                        <field name="laposte_delay_min" />
+                        <field name="laposte_delay_max" />
                     </group>
                     <field
                         name="laposte_tariff_ids"
@@ -90,6 +96,8 @@
                             <field name="zone" />
                             <field name="max_weight" />
                             <field name="price" />
+                            <field name="delay_min" />
+                            <field name="delay_max" />
                             <field name="currency_id" column_invisible="1" />
                         </list>
                     </field>

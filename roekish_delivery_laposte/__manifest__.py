@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Delivery Carrier La Poste / Colissimo / Delivengo",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "summary": "Rate, ship and track parcels with La Poste: Colissimo and Delivengo",
     "author": "ROEKISH",
     "maintainers": ["alexis2m"],

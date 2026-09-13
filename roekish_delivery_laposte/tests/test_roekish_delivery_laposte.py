@@ -285,6 +285,43 @@ class TestDeliveryLaposte(TransactionCase):
         res = carrier.laposte_rate_shipment(order)
         self.assertTrue(res["success"])
         self.assertEqual(res["price"], 7.5)
+        # The carrier delivery time is returned with rule-based prices too.
+        carrier.write({"laposte_delay_min": 1, "laposte_delay_max": 2})
+        res = carrier.laposte_rate_shipment(order)
+        self.assertEqual((res["delay_min"], res["delay_max"]), (1, 2))
+
+    # ------------------------------------------------------------------
+    # delivery time
+    # ------------------------------------------------------------------
+    def test_rate_shipment_delivery_time(self):
+        # Unknown by default: zeros and no message, nothing misleading shown.
+        res = self.carrier.laposte_rate_shipment(self._create_order(self.carrier))
+        self.assertEqual((res["delay_min"], res["delay_max"]), (0, 0))
+        self.assertFalse(res["warning_message"])
+        # The carrier time applies everywhere; a grid line overrides it.
+        self.carrier.write({"laposte_delay_min": 2, "laposte_delay_max": 3})
+        self.carrier.laposte_tariff_ids.filtered(lambda t: t.zone == "EU").write(
+            {"delay_min": 3, "delay_max": 5}
+        )
+        order = self._create_order(self.carrier)
+        res = self.carrier.laposte_rate_shipment(order)
+        self.assertEqual((res["delay_min"], res["delay_max"]), (2, 3))
+        self.assertEqual(res["warning_message"], "Delivery in 2 to 3 working days.")
+        res = self.carrier.laposte_rate_shipment(
+            self._create_order(
+                self.carrier, partner_vals={"country_id": self.env.ref("base.de").id}
+            )
+        )
+        self.assertEqual(res["price"], 12.0)
+        self.assertEqual((res["delay_min"], res["delay_max"]), (3, 5))
+        # Single value and one-day wording.
+        self.carrier.write({"laposte_delay_min": 1, "laposte_delay_max": 1})
+        res = self.carrier.laposte_rate_shipment(order)
+        self.assertEqual(res["warning_message"], "Delivery in 1 working day.")
+        # The generic entry point used to compare carriers keeps the keys.
+        res = self.carrier.rate_shipment(order)
+        self.assertEqual(res["price"], 14.10)
+        self.assertEqual((res["delay_min"], res["delay_max"]), (1, 1))
 
     # ------------------------------------------------------------------
     # pickup points

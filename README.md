@@ -24,6 +24,7 @@
 | | |
 |---|---|
 | **Tarification** | Prix calculé depuis une **grille tarifaire Colissimo** (poids × zone) ou les **règles de prix natives** d'Odoo. Point d'extension `_laposte_get_live_price` (fail-closed) pour un futur service de cotation. |
+| **Délai de livraison** | Délai annoncé en **jours ouvrés** (min / max) réglé sur le transporteur, surchargeable par zone dans la grille. Renvoyé avec le prix par `rate_shipment` (`delay_min` / `delay_max`) et affiché dans l'assistant d'ajout de livraison, pour choisir un transporteur sur le coût et le délai. |
 | **Étiquettes** | Génération d'étiquette Colissimo via [`roulier`](https://pypi.org/project/roulier/) ; numéro de suivi enregistré sur le bon de livraison. |
 | **Points de retrait** | Recherche des relais proches (web service Colissimo *Point Retrait* via `zeep`), sélectionnable sur le **devis** et le **bon de livraison**, propagé à la validation. |
 | **Suivi** | Lien de suivi La Poste pour le client. |
