@@ -11,6 +11,7 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 from .delivery_carrier import EU_COUNTRY_CODES, OM1_COUNTRY_CODES, OM2_COUNTRY_CODES
+from .demo_label import is_demo_tracking
 
 _logger = logging.getLogger(__name__)
 
@@ -173,6 +174,15 @@ class DeliveryCarrierDelivengo(models.Model):
 
     def _delivengo_send_one(self, picking):
         self.ensure_one()
+        if self.laposte_demo_label:
+            self._delivengo_check_shipment(picking)
+            return self._laposte_send_demo(
+                picking,
+                self._laposte_selection_label(
+                    "delivengo_support", self.delivengo_support
+                ),
+                self._delivengo_postage(picking),
+            )
         payload = self._delivengo_build_payload(picking)
         zpl = self.delivengo_label_format in ("64", "128")
         data = self._delivengo_request(
@@ -530,6 +540,8 @@ class DeliveryCarrierDelivengo(models.Model):
     def delivengo_get_tracking_link(self, picking):
         self.ensure_one()
         ref = (picking.carrier_tracking_ref or "").split(",")[0].strip()
+        if is_demo_tracking(ref):
+            return False
         return "https://www.laposte.fr/outils/suivre-vos-envois?code=%s" % ref
 
     def delivengo_cancel_shipment(self, pickings):

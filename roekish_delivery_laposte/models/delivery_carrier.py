@@ -8,6 +8,13 @@ import re
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 
+from .demo_label import (
+    demo_tracking_number,
+    is_demo_tracking,
+    partner_lines,
+    render_demo_label,
+)
+
 _logger = logging.getLogger(__name__)
 
 try:
@@ -128,6 +135,13 @@ class DeliveryCarrier(models.Model):
         ],
         string="Label format",
         default="PDF_10x15_300dpi",
+    )
+    laposte_demo_label = fields.Boolean(
+        string="Demo labels",
+        help="Generate a specimen PDF label with a fake DEMO tracking number "
+        "instead of calling La Poste: no shipment is created and nothing is "
+        "billed. For demonstrations and training only; untick before "
+        "shipping real parcels.",
     )
     laposte_pricing_method = fields.Selection(
         selection=[
@@ -310,6 +324,15 @@ class DeliveryCarrier(models.Model):
 
     def _laposte_send_one(self, picking):
         self.ensure_one()
+        if self.laposte_demo_label:
+            self._laposte_check_shipment(picking)
+            return self._laposte_send_demo(
+                picking,
+                self._laposte_selection_label(
+                    "laposte_product_code", self.laposte_product_code
+                ),
+                self._laposte_price_for_picking(picking),
+            )
         if roulier is None:
             raise UserError(
                 self.env._(
@@ -335,6 +358,54 @@ class DeliveryCarrier(models.Model):
             "exact_price": self._laposte_price_for_picking(picking),
             "tracking_number": tracking_number or False,
         }
+
+    def _laposte_send_demo(self, picking, product, price):
+        """Attach a specimen label instead of calling La Poste.
+
+        Shared by the Colissimo and Delivengo providers: the shipment data
+        is still validated by the caller, only the carrier call is skipped.
+        """
+        self.ensure_one()
+        tracking = demo_tracking_number(picking)
+        company = self.company_id or self.env.company
+        weight = picking.shipping_weight or picking.weight or 0.0
+        details = [
+            self.env._("Weight: %s kg", round(weight, 3)),
+            self.env._(
+                "Reference: %s",
+                picking.sale_id.name or picking.origin or picking.name,
+            ),
+        ]
+        if picking.laposte_pickup_point_code:
+            details.append(
+                self.env._("Pickup point: %s", picking.laposte_pickup_point_code)
+            )
+        pdf = render_demo_label(
+            heading=self.env._("DEMO LABEL - NOT VALID FOR SHIPPING"),
+            watermark=self.env._("SPECIMEN"),
+            carrier="%s - %s" % (self.name, product),
+            sections=[
+                (self.env._("From"), partner_lines(company.partner_id)),
+                (self.env._("To"), partner_lines(picking.partner_id)),
+                (self.env._("Shipment"), details),
+            ],
+            tracking=tracking,
+            footer=self.env._("Demo mode: no shipment was created at the carrier."),
+        )
+        picking.message_post(
+            body=self.env._(
+                "Demo label %s: no shipment was created at La Poste.", tracking
+            ),
+            attachments=[
+                ("%s_%s.pdf" % (picking.name.replace("/", "_"), tracking), pdf)
+            ],
+        )
+        return {"exact_price": price, "tracking_number": tracking}
+
+    def _laposte_selection_label(self, field_name, value):
+        """Translated label of a selection ``value`` of ``field_name``."""
+        selection = self._fields[field_name]._description_selection(self.env)
+        return dict(selection).get(value, value or "")
 
     def _laposte_attach_labels(self, picking, result):
         """Attach every returned label to the picking, return 1st tracking."""
@@ -614,6 +685,8 @@ class DeliveryCarrier(models.Model):
     def laposte_get_tracking_link(self, picking):
         self.ensure_one()
         ref = (picking.carrier_tracking_ref or "").split(",")[0].strip()
+        if is_demo_tracking(ref):
+            return False
         return "https://www.laposte.fr/outils/suivre-vos-envois?code=%s" % ref
 
     def laposte_cancel_shipment(self, pickings):

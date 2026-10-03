@@ -397,6 +397,40 @@ class TestDeliveryLaposte(TransactionCase):
         self.assertEqual(points[0]["distance"], 120.0)
 
     # ------------------------------------------------------------------
+    # demo labels
+    # ------------------------------------------------------------------
+    def test_demo_label_without_account(self):
+        # No credentials, no roulier: the flow still yields a label.
+        self.carrier.laposte_demo_label = True
+        picking = self._create_delivery(self.carrier)
+        with patch(CARRIER_MODULE + ".roulier", None):
+            result = self.carrier.laposte_send_shipping(picking)
+        tracking = result[0]["tracking_number"]
+        self.assertEqual(tracking, "DEMO%010d" % picking.id)
+        self.assertEqual(result[0]["exact_price"], 14.10)
+        attachment = self.env["ir.attachment"].search(
+            [("res_model", "=", "stock.picking"), ("res_id", "=", picking.id)]
+        )
+        self.assertEqual(attachment.mimetype, "application/pdf")
+        self.assertTrue(attachment.raw.startswith(b"%PDF"))
+        picking.carrier_tracking_ref = tracking
+        self.assertFalse(self.carrier.laposte_get_tracking_link(picking))
+
+    def test_demo_label_through_picking_validation(self):
+        self.carrier.laposte_demo_label = True
+        picking = self._create_delivery(self.carrier)
+        picking.move_ids.quantity = 1
+        picking.button_validate()
+        self.assertEqual(picking.state, "done")
+        self.assertTrue(picking.carrier_tracking_ref.startswith("DEMO"))
+
+    def test_demo_label_still_validates_shipment(self):
+        self.carrier.laposte_demo_label = True
+        picking = self._create_delivery(self.carrier, weight=0.0)
+        with self.assertRaises(UserError):
+            self.carrier.laposte_send_shipping(picking)
+
+    # ------------------------------------------------------------------
     # fail-closed guards
     # ------------------------------------------------------------------
     def test_send_shipping_without_roulier_fails_closed(self):

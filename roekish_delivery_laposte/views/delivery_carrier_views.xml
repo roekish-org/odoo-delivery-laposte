@@ -13,6 +13,14 @@
                     string="La Poste"
                     invisible="delivery_type != 'laposte'"
                 >
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        invisible="not laposte_demo_label"
+                    >
+                        Demo labels are on: validating a delivery attaches a
+                        specimen label, no shipment is created at La Poste.
+                    </div>
                     <group>
                         <group string="Web service credentials">
                             <field name="laposte_account" />
@@ -20,6 +28,7 @@
                                 name="laposte_password"
                                 password="True"
                             />
+                            <field name="laposte_demo_label" />
                             <button
                                 name="action_laposte_test_connection"
                                 type="object"
@@ -62,6 +71,14 @@
                     string="Delivengo"
                     invisible="delivery_type != 'delivengo'"
                 >
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        invisible="not laposte_demo_label"
+                    >
+                        Demo labels are on: validating a delivery attaches a
+                        specimen label, no shipment is created at La Poste.
+                    </div>
                     <group>
                         <group string="MyDelivengo account">
                             <field
@@ -69,6 +86,7 @@
                                 password="True"
                             />
                             <field name="delivengo_sender_mobile" />
+                            <field name="laposte_demo_label" />
                             <button
                                 name="action_delivengo_test_connection"
                                 type="object"

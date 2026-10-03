@@ -3,6 +3,19 @@
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet suit le versionnage des modules Odoo (`19.0.x.y.z`).
 
+## [19.0.1.4.0] - 2026-10-03
+
+### Ajouté
+
+- **Étiquettes de démonstration** : case à cocher sur le transporteur
+  (Colissimo et Delivengo). Activée, la validation d'un bon de livraison
+  joint une étiquette PDF 10x15 « SPÉCIMEN » générée localement (adresses,
+  poids, référence, point de retrait, code-barres) avec un faux numéro de
+  suivi `DEMO…`, sans appel à La Poste : aucun envoi créé, rien de facturé.
+  Les contrôles du colis (poids, adresse, destination, douane) restent
+  appliqués. Un bandeau signale le mode sur la fiche transporteur ; pas de
+  lien de suivi pour les numéros `DEMO`.
+
 ## [19.0.1.3.0] - 2026-09-13
 
 ### Ajouté

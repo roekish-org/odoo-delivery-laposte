@@ -61,6 +61,10 @@ Demo data ships four carriers with the public Colissimo 2026 tariffs (Home,
 Pickup Point, Overseas Economy, Prepaid) and a *Delivengo easy* carrier with
 the public Delivengo easy grid. Replace them with your negotiated rates.
 
+Tick *Demo labels* on a carrier to demonstrate the flow without an account:
+validating a delivery attaches a specimen PDF label with a fake ``DEMO``
+tracking number and never calls La Poste. Untick it before shipping.
+
 Requirements
 ============
 

@@ -376,3 +376,29 @@ class TestDeliveryDelivengo(TransactionCase):
         self.assertIn(
             "LD037508768FR", self.carrier.delivengo_get_tracking_link(picking)
         )
+
+    def test_demo_label_skips_delivengo(self):
+        self.carrier.laposte_demo_label = True
+        picking = self._delivery(self._partner("base.de", zip="10115", city="Berlin"))
+        with patch(DELIVENGO_MODULE + ".requests.request") as request:
+            result = self.carrier.delivengo_send_shipping(picking)
+        request.assert_not_called()
+        self.assertTrue(result[0]["tracking_number"].startswith("DEMO"))
+        self.assertEqual(result[0]["exact_price"], 6.46)
+        self.assertFalse(picking.delivengo_shipment_id)
+        attachment = self.env["ir.attachment"].search(
+            [("res_model", "=", "stock.picking"), ("res_id", "=", picking.id)]
+        )
+        self.assertTrue(attachment.raw.startswith(b"%PDF"))
+        picking.carrier_tracking_ref = result[0]["tracking_number"]
+        self.assertFalse(self.carrier.delivengo_get_tracking_link(picking))
+        # Cancelling a demo shipment never calls Delivengo either.
+        with patch(DELIVENGO_MODULE + ".requests.request") as request:
+            self.carrier.delivengo_cancel_shipment(picking)
+        request.assert_not_called()
+
+    def test_demo_label_still_validates_shipment(self):
+        self.carrier.laposte_demo_label = True
+        picking = self._delivery(self._partner("base.fr", zip="75001", city="Paris"))
+        with self.assertRaises(UserError):
+            self.carrier.delivengo_send_shipping(picking)
