@@ -3,6 +3,20 @@
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet suit le versionnage des modules Odoo (`19.0.x.y.z`).
 
+## [19.0.1.4.1] - 2026-10-03
+
+### Corrigé
+
+- **Étiquettes Colissimo** : la charge utile envoyée à roulier ne respectait
+  pas son schéma `laposte_fr` (`productCode` au lieu de `product`, `street`
+  au lieu de `street1`, date d'expédition passée en texte). roulier refusait
+  donc toute étiquette avant même d'appeler La Poste (« empty values not
+  allowed », « must be of date type »). Les tests simulaient roulier et ne
+  pouvaient pas le voir : un test passe désormais la charge utile par la
+  validation réelle de roulier (sans appel réseau).
+- L'adresse de la société (expéditeur) est contrôlée avant l'envoi, avec un
+  message clair si elle est incomplète.
+
 ## [19.0.1.4.0] - 2026-10-03
 
 ### Ajouté

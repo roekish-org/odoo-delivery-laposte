@@ -453,9 +453,10 @@ class DeliveryCarrier(models.Model):
         company = self.company_id or self.env.company
         weight = picking.shipping_weight or picking.weight or 0.0
         service = {
-            "productCode": self.laposte_product_code,
+            "product": self.laposte_product_code,
             "labelFormat": self.laposte_label_format,
-            "shippingDate": fields.Date.context_today(picking).isoformat(),
+            # roulier validates a date object and formats it itself.
+            "shippingDate": fields.Date.context_today(picking),
             "commercialName": company.name,
             "returnTypeChoice": 3,  # do not return to sender
         }
@@ -502,6 +503,15 @@ class DeliveryCarrier(models.Model):
                     fields=", ".join(missing),
                 )
             )
+        company = self.company_id or self.env.company
+        sender = company.partner_id
+        if not (sender.street and sender.zip and sender.city and sender.country_id):
+            raise UserError(
+                self.env._(
+                    "Complete the address of company %s: it is the parcel sender.",
+                    company.name,
+                )
+            )
 
     def _laposte_mask_secrets(self, text):
         """Redact the account password from any carrier/library message."""
@@ -522,7 +532,7 @@ class DeliveryCarrier(models.Model):
         return {
             "company": partner.commercial_company_name or "",
             "name": partner.name or "",
-            "street": partner.street or "",
+            "street1": partner.street or "",
             "street2": partner.street2 or "",
             "city": partner.city or "",
             "zip": partner.zip or "",

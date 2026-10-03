@@ -462,6 +462,44 @@ class TestDeliveryLaposte(TransactionCase):
         self.assertEqual(payload["service"]["commercialName"], self.env.company.name)
         self.assertTrue(payload["from_address"]["name"])
 
+    def test_payload_passes_roulier_validation(self):
+        # Run roulier's own encoder (schema validation + XML rendering, no
+        # network) so a payload key it does not know cannot slip through.
+        try:
+            from roulier.carriers.laposte_fr import carrier_action
+            from roulier.carriers.laposte_fr.encoder import LaposteFrEncoder
+        except ImportError:
+            self.skipTest("roulier is not installed")
+        # roulier spells this class "LaposteFrGetabel".
+        get_label_class = getattr(carrier_action, "LaposteFrGetLabel", None) or getattr(
+            carrier_action, "LaposteFrGetabel"
+        )
+        self.env.company.partner_id.write(
+            {
+                "street": "26 rue George Sand",
+                "zip": "75016",
+                "city": "Paris",
+                "country_id": self.env.ref("base.fr").id,
+            }
+        )
+        self.carrier.sudo().write(
+            {"laposte_account": "123456", "laposte_password": "pw"}
+        )
+        picking = self._create_delivery(self.carrier)
+        payload = self.carrier._laposte_build_payload(picking)
+        config = get_label_class("laposte_fr", "get_label")
+        body = LaposteFrEncoder(config).encode(payload)["body"]
+        self.assertIn("<productCode>DOM</productCode>", body)
+        self.assertIn("27 Rue Henri Rolland", body)
+        self.assertIn("26 rue George Sand", body)
+
+    def test_check_shipment_requires_sender_address(self):
+        picking = self._create_delivery(self.carrier)
+        self.env.company.partner_id.street = False
+        with self.assertRaises(UserError) as ctx:
+            self.carrier._laposte_check_shipment(picking)
+        self.assertIn("sender", str(ctx.exception))
+
     def test_rate_shipment_no_bracket(self):
         partner = self.env["res.partner"].create(
             {"name": "Client US", "country_id": self.env.ref("base.us").id}
