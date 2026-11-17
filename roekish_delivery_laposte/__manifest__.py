@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Delivery Carrier La Poste / Colissimo / Delivengo",
-    "version": "19.0.1.4.1",
+    "version": "19.0.1.4.2",
     "summary": "Rate, ship and track parcels with La Poste: Colissimo and Delivengo",
     "author": "ROEKISH",
     "maintainers": ["alexis2m"],
-    "website": "https://github.com/roekish-org/odoo-delivery-laposte",
+    "website": "https://www.roekish.com/applications/la-poste",
     "category": "Inventory/Delivery",
     "license": "AGPL-3",
     "images": ["static/description/banner.png"],
